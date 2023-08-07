@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Kami\RecipeUtilsTests;
 
 use PHPUnit\Framework\TestCase;
+use Kami\RecipeUtils\Parser\Parser;
 
 final class ParserTest extends TestCase
 {
     public function testParse(): void
     {
-        $parser = new \Kami\RecipeUtils\Parser\Parser();
+        $parser = new Parser();
 
         $testCases = [
             '30 ml Tequila reposado' => [
