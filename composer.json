@@ -1,0 +1,25 @@
+{
+    "name": "karlomikus/recipe-utils",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Karlo Mikuš",
+            "email": "contact@karlomikus.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : "^8.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kami\\RecipeUtils\\": "src/",
+            "Kami\\RecipeUtilsTests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.3",
+        "phpstan/phpstan": "^1.10"
+    }
+}
