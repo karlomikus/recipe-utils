@@ -8,13 +8,26 @@ use Kami\RecipeUtils\RecipeIngredient;
 
 class Parser
 {
+    private StringParserInterface $amountParser;
+
+    private StringParserInterface $unitParser;
+
+    private StringParserInterface $nameParser;
+
+    public function __construct()
+    {
+        $this->amountParser = new AmountParser();
+        $this->unitParser = new UnitParser();
+        $this->nameParser = new NameParser();
+    }
+
     public function parse(string $sourceString): RecipeIngredient
     {
         $baseString = $this->normalizeString($sourceString);
 
-        [$amount, $baseString] = (new AmountParser())->parse($baseString);
-        [$units, $baseString] = (new UnitParser())->parse($baseString);
-        [$name, $baseString] = (new NameParser())->parse($baseString);
+        [$amount, $baseString] = $this->amountParser->parse($baseString);
+        [$units, $baseString] = $this->unitParser->parse($baseString);
+        [$name, $baseString] = $this->nameParser->parse($baseString);
 
         return new RecipeIngredient(
             $name,
@@ -22,6 +35,27 @@ class Parser
             $units,
             $sourceString
         );
+    }
+
+    public function setAmountParser(StringParserInterface $parser): self
+    {
+        $this->amountParser = $parser;
+
+        return $this;
+    }
+
+    public function setUnitParser(StringParserInterface $parser): self
+    {
+        $this->unitParser = $parser;
+
+        return $this;
+    }
+
+    public function setNameParser(StringParserInterface $parser): self
+    {
+        $this->nameParser = $parser;
+
+        return $this;
     }
 
     private function normalizeString(string $string): string
