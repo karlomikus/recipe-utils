@@ -1,5 +1,6 @@
 {
     "name": "karlomikus/recipe-utils",
+    "description": "Utilities for extracting normalized ingredient data from recipes",
     "type": "library",
     "license": "MIT",
     "authors": [
