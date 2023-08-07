@@ -14,10 +14,31 @@ class Parser
 
     private StringParserInterface $nameParser;
 
+    /**
+     * @var array<string, array<string>>
+     */
+    private array $units = [
+        'oz' => ['oz.', 'ounce', 'fl-oz', 'oz', 'ounces'],
+        'ml' => ['ml', 'ml.', 'milliliter', 'milliliters'],
+        'cl' => ['cl', 'cl.', 'centiliter', 'centiliters'],
+        'dash' => ['dashes', 'dash'],
+        'sprigs' => ['sprig', 'sprigs'],
+        'leaves' => ['leaves', 'leaf'],
+        'whole' => ['whole'],
+        'drops' => ['drop', 'drops'],
+        'barspoon' => ['barspoon', 'teaspoon', 'tsp', 'tsp.', 'tspn', 't', 't.', 'teaspoon', 'teaspoons', 'tablespoons', 'tablespoon'],
+        'slice' => ['slice', 'sliced', 'slices'],
+        'cup' => ['c', 'c.', 'cup', 'cups'],
+        'pint' => ['pt', 'pts', 'pt.', 'pint', 'pints'],
+        'splash' => ['splash', 'splashes'],
+        'pinch' => ['pinches', 'pinch'],
+        'topup' => ['topup'],
+    ];
+
     public function __construct()
     {
         $this->amountParser = new AmountParser();
-        $this->unitParser = new UnitParser();
+        $this->unitParser = new UnitParser($this->units);
         $this->nameParser = new NameParser();
     }
 
@@ -56,6 +77,14 @@ class Parser
         $this->nameParser = $parser;
 
         return $this;
+    }
+
+    /**
+     * @return array<string, array<string>>
+     */
+    public function getUnits(): array
+    {
+        return $this->units;
     }
 
     private function normalizeString(string $string): string

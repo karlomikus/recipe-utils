@@ -6,6 +6,7 @@ namespace Kami\RecipeUtilsTests;
 
 use PHPUnit\Framework\TestCase;
 use Kami\RecipeUtils\Parser\Parser;
+use Kami\RecipeUtils\Parser\UnitParser;
 
 final class ParserTest extends TestCase
 {
@@ -82,5 +83,20 @@ final class ParserTest extends TestCase
             $this->assertSame($expectedResult['units'], $result->units, sprintf('Wrong units for "%s"', $sourceString));
             $this->assertSame($expectedResult['name'], $result->name, sprintf('Wrong name for "%s"', $sourceString));
         }
+    }
+
+    public function testCustomUnits(): void
+    {
+        $parser = new Parser();
+        $parser->setUnitParser(
+            new UnitParser([
+                'test' => ['lorem', 'ipsum']
+            ])
+        );
+
+        $result = $parser->parse('15 lorem ingredient names');
+        $this->assertSame('test', $result->units);
+        $this->assertSame('15', $result->amount);
+        $this->assertSame('ingredient names', $result->name);
     }
 }

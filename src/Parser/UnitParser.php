@@ -7,25 +7,11 @@ namespace Kami\RecipeUtils\Parser;
 class UnitParser implements StringParserInterface
 {
     /**
-     * @var array<string, array<string>>
+     * @param array<string, array<string>> $units
      */
-    private array $units = [
-        'oz' => ['oz.', 'ounce', 'fl-oz', 'oz', 'ounces'],
-        'ml' => ['ml', 'ml.', 'milliliter', 'milliliters'],
-        'cl' => ['cl', 'cl.', 'centiliter', 'centiliters'],
-        'dash' => ['dashes', 'dash'],
-        'sprigs' => ['sprig', 'sprigs'],
-        'leaves' => ['leaves', 'leaf'],
-        'whole' => ['whole'],
-        'drops' => ['drop', 'drops'],
-        'barspoon' => ['barspoon', 'teaspoon', 'tsp', 'tsp.', 'tspn', 't', 't.', 'teaspoon', 'teaspoons', 'tablespoons', 'tablespoon'],
-        'slice' => ['slice', 'sliced', 'slices'],
-        'cup' => ['c', 'c.', 'cup', 'cups'],
-        'pint' => ['pt', 'pts', 'pt.', 'pint', 'pints'],
-        'splash' => ['splash', 'splashes'],
-        'pinch' => ['pinches', 'pinch'],
-        'topup' => ['topup'],
-    ];
+    public function __construct(private readonly array $units = [])
+    {
+    }
 
     public function parse(string $sourceString): array
     {
