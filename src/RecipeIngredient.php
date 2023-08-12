@@ -8,7 +8,7 @@ class RecipeIngredient
 {
     public function __construct(
         public readonly string $name,
-        public readonly string $amount,
+        public readonly string|float|int $amount,
         public readonly string $units,
         public readonly string $source,
     ) {
