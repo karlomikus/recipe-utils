@@ -99,4 +99,11 @@ final class ParserTest extends TestCase
         $this->assertSame('15', $result->amount);
         $this->assertSame('ingredient names', $result->name);
     }
+
+    public function testStaticCall(): void
+    {
+        $parsed = Parser::process('30 ml Tequila reposado');
+
+        $this->assertSame('30', $parsed->amount);
+    }
 }

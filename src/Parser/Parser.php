@@ -87,6 +87,11 @@ class Parser
         return $this->units;
     }
 
+    public static function process(string $source): RecipeIngredient
+    {
+        return (new self())->parse($source);
+    }
+
     private function normalizeString(string $string): string
     {
         $string = str_replace('*', '', $string);
