@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Kami\RecipeUtils\Parser;
 
 use Kami\RecipeUtils\RecipeIngredient;
+use Kami\RecipeUtils\UnitConverter\Units;
+use Kami\RecipeUtils\UnitConverter\Converter;
 
 class Parser
 {
@@ -55,6 +57,14 @@ class Parser
             $amount,
             $units,
             $sourceString
+        );
+    }
+
+    public function parseWithUnits(string $sourceString, Units $convertToUnits): RecipeIngredient
+    {
+        return Converter::tryConvert(
+            $this->parse($sourceString),
+            $convertToUnits
         );
     }
 

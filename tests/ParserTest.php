@@ -7,6 +7,7 @@ namespace Kami\RecipeUtilsTests;
 use PHPUnit\Framework\TestCase;
 use Kami\RecipeUtils\Parser\Parser;
 use Kami\RecipeUtils\Parser\UnitParser;
+use Kami\RecipeUtils\UnitConverter\Units;
 
 final class ParserTest extends TestCase
 {
@@ -75,6 +76,21 @@ final class ParserTest extends TestCase
                 'units' => 'dash',
                 'name' => 'Angostura Bitters',
             ],
+            '30 ml' => [
+                'amount' => '30',
+                'units' => 'ml',
+                'name' => '',
+            ],
+            '2.5 oz' => [
+                'amount' => '2.5',
+                'units' => 'oz',
+                'name' => '',
+            ],
+            '1 1/2 oz.' => [
+                'amount' => '1 1/2',
+                'units' => 'oz',
+                'name' => '',
+            ],
         ];
 
         foreach ($testCases as $sourceString => $expectedResult) {
@@ -105,5 +121,25 @@ final class ParserTest extends TestCase
         $parsed = Parser::process('30 ml Tequila reposado');
 
         $this->assertSame('30', $parsed->amount);
+    }
+
+    public function testParseAndConvert(): void
+    {
+        $parser = new Parser();
+
+        $recipeIngredient = $parser->parseWithUnits('1 1/2 oz. mezcal', Units::Ml);
+        $this->assertSame(45.0, $recipeIngredient->amount);
+        $this->assertSame('ml', $recipeIngredient->units);
+        $this->assertSame('mezcal', $recipeIngredient->name);
+
+        $recipeIngredient = $parser->parseWithUnits('1 1/2 oz. mezcal', Units::Oz);
+        $this->assertSame('1 1/2', $recipeIngredient->amount);
+        $this->assertSame('oz', $recipeIngredient->units);
+        $this->assertSame('mezcal', $recipeIngredient->name);
+
+        $recipeIngredient = $parser->parseWithUnits('15ml mezcal', Units::Oz);
+        $this->assertSame(0.5, $recipeIngredient->amount);
+        $this->assertSame('oz', $recipeIngredient->units);
+        $this->assertSame('mezcal', $recipeIngredient->name);
     }
 }

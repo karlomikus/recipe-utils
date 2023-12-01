@@ -8,7 +8,10 @@ use Kami\RecipeUtils\RecipeIngredient;
 
 class Converter
 {
-    public static function tryConvert(RecipeIngredient $recipeIngredient, Units $to): RecipeIngredient
+    /**
+     * @param array<Units> $ignoreUnits Units in this array won't get converted
+     */
+    public static function tryConvert(RecipeIngredient $recipeIngredient, Units $to, array $ignoreUnits = []): RecipeIngredient
     {
         $from = Units::tryFrom($recipeIngredient->units);
         if ($from === null) {
@@ -19,7 +22,7 @@ class Converter
         $fromUnit = call_user_func($converterClass . '::fromString', $recipeIngredient->amount);
         $method = 'to' . $to->name;
 
-        if (!method_exists($fromUnit, $method)) {
+        if (!method_exists($fromUnit, $method) || in_array($from, $ignoreUnits)) {
             return $recipeIngredient;
         }
 
