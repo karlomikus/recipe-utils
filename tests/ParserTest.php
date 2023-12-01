@@ -96,6 +96,11 @@ final class ParserTest extends TestCase
                 'units' => 'oz',
                 'name' => '',
             ],
+            '3 lemon wedges' => [
+                'amount' => '3',
+                'units' => 'wedge',
+                'name' => 'lemon',
+            ],
         ];
 
         foreach ($testCases as $sourceString => $expectedResult) {
@@ -145,6 +150,11 @@ final class ParserTest extends TestCase
         $recipeIngredient = $parser->parseWithUnits('15ml mezcal', Units::Oz);
         $this->assertSame(0.5, $recipeIngredient->amount);
         $this->assertSame('oz', $recipeIngredient->units);
+        $this->assertSame('mezcal', $recipeIngredient->name);
+
+        $recipeIngredient = $parser->parseWithUnits('15 parts mezcal', Units::Ml);
+        $this->assertSame('15', $recipeIngredient->amount);
+        $this->assertSame('part', $recipeIngredient->units);
         $this->assertSame('mezcal', $recipeIngredient->name);
     }
 }

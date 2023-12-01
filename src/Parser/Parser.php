@@ -35,6 +35,8 @@ class Parser
         'splash' => ['splash', 'splashes'],
         'pinch' => ['pinches', 'pinch'],
         'topup' => ['topup'],
+        'part' => ['part', 'parts'],
+        'wedge' => ['wedge', 'wedges'],
     ];
 
     public function __construct()
