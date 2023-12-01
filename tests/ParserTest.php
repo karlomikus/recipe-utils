@@ -51,6 +51,11 @@ final class ParserTest extends TestCase
                 'units' => 'sprigs',
                 'name' => 'mint',
             ],
+            '2 or 3 mint sprigs' => [
+                'amount' => '2 - 3',
+                'units' => 'sprigs',
+                'name' => 'mint',
+            ],
             '2 oz. spiced rum' => [
                 'amount' => '2',
                 'units' => 'oz',

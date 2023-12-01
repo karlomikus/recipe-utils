@@ -11,7 +11,7 @@ class AmountParser implements StringParserInterface
         $amount = ['0', $sourceString];
 
         // Match variable amounts (ex: 3-6 mint sprigs)
-        $hasVariableAmount = preg_match('/^(\d+\-\d+)|^(\d+\s\-\s\d+)|^(\d+\s(to)\s\d+)/', $sourceString, $varMatches);
+        $hasVariableAmount = preg_match('/^(\d+\-\d+)|^(\d+\s\-\s\d+)|^(\d+\s(to|or)\s\d+)/', $sourceString, $varMatches);
         if ($hasVariableAmount === 1) {
             $amount = $varMatches[0];
 
@@ -21,7 +21,7 @@ class AmountParser implements StringParserInterface
             }
 
             $result = [
-                str_replace('to', '-', $amount),
+                str_replace(['to', 'or'], '-', $amount),
                 $restOfTheString
             ];
 
