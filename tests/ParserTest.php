@@ -138,7 +138,7 @@ final class ParserTest extends TestCase
         $this->assertSame('mezcal', $recipeIngredient->name);
 
         $recipeIngredient = $parser->parseWithUnits('1 1/2 oz. mezcal', Units::Oz);
-        $this->assertSame('1 1/2', $recipeIngredient->amount);
+        $this->assertSame(1.5, $recipeIngredient->amount);
         $this->assertSame('oz', $recipeIngredient->units);
         $this->assertSame('mezcal', $recipeIngredient->name);
 

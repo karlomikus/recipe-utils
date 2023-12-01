@@ -15,4 +15,9 @@ class Ml extends Unit
     {
         return new Cl($this->getValue() / 10);
     }
+
+    public function toMl(): Ml
+    {
+        return new Ml($this->getValue());
+    }
 }

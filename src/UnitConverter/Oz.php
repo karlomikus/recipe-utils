@@ -15,4 +15,9 @@ class Oz extends Unit
     {
         return new Cl($this->getValue() * 3);
     }
+
+    public function toOz(): Oz
+    {
+        return new Oz($this->getValue());
+    }
 }

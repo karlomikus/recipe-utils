@@ -10,4 +10,9 @@ class Dash extends Unit
     // {
     //     return new Ml($this->getValue() * 0.3125);
     // }
+
+    public function toDash(): Dash
+    {
+        return new Dash($this->getValue());
+    }
 }
