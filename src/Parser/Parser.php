@@ -16,6 +16,8 @@ class Parser
 
     private StringParserInterface $nameParser;
 
+    private StringParserInterface $commentParser;
+
     /**
      * @var array<string, array<string>>
      */
@@ -44,30 +46,34 @@ class Parser
         $this->amountParser = new AmountParser();
         $this->unitParser = new UnitParser($this->units);
         $this->nameParser = new NameParser();
+        $this->commentParser = new CommentParser();
     }
 
-    public function parse(string $sourceString): RecipeIngredient
+    public function parseLine(string $sourceString, ?Units $convertToUnits = null): RecipeIngredient
     {
         $baseString = $this->normalizeString($sourceString);
 
         [$amount, $baseString] = $this->amountParser->parse($baseString);
         [$units, $baseString] = $this->unitParser->parse($baseString);
+        [$comment, $baseString] = $this->commentParser->parse($baseString);
         [$name, $baseString] = $this->nameParser->parse($baseString);
 
-        return new RecipeIngredient(
+        $ingredient = new RecipeIngredient(
             $name,
             $amount,
             $units,
-            $sourceString
+            $sourceString,
+            $comment
         );
-    }
 
-    public function parseWithUnits(string $sourceString, Units $convertToUnits): RecipeIngredient
-    {
-        return Converter::tryConvert(
-            $this->parse($sourceString),
-            $convertToUnits
-        );
+        if ($convertToUnits) {
+            return Converter::tryConvert(
+                $ingredient,
+                $convertToUnits
+            );
+        }
+
+        return $ingredient;
     }
 
     public function setAmountParser(StringParserInterface $parser): self
@@ -91,6 +97,13 @@ class Parser
         return $this;
     }
 
+    public function setCommentParser(StringParserInterface $parser): self
+    {
+        $this->commentParser = $parser;
+
+        return $this;
+    }
+
     /**
      * @return array<string, array<string>>
      */
@@ -99,13 +112,14 @@ class Parser
         return $this->units;
     }
 
-    public static function process(string $source): RecipeIngredient
+    public static function line(string $sourceString, ?Units $convertToUnits = null): RecipeIngredient
     {
-        return (new self())->parse($source);
+        return (new self())->parseLine($sourceString, $convertToUnits);
     }
 
     private function normalizeString(string $string): string
     {
+        $string = html_entity_decode($string);
         $string = str_replace('*', '', $string);
 
         if ($encString = iconv('', 'US//TRANSLIT', $string)) {

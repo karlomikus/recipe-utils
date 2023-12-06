@@ -30,7 +30,8 @@ class Converter
             $recipeIngredient->name,
             $fromUnit->{$method}()->getValue(),
             $to->value,
-            $recipeIngredient->source
+            $recipeIngredient->source,
+            $recipeIngredient->comment
         );
     }
 }
