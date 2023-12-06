@@ -31,7 +31,9 @@ class Converter
             $fromUnit->{$method}()->getValue(),
             $to->value,
             $recipeIngredient->source,
-            $recipeIngredient->comment
+            $recipeIngredient->originalAmount,
+            $recipeIngredient->comment,
+            $recipeIngredient->amountMax
         );
     }
 }

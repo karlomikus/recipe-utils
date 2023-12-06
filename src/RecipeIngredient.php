@@ -8,10 +8,12 @@ readonly class RecipeIngredient
 {
     public function __construct(
         public string $name,
-        public string|float|int $amount,
+        public float $amount,
         public string $units,
         public string $source,
-        public ?string $comment = null
+        public ?string $originalAmount = null,
+        public ?string $comment = null,
+        public ?float $amountMax = null,
     ) {
     }
 }

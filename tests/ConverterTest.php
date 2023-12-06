@@ -73,16 +73,16 @@ class ConverterTest extends TestCase
 
     public function test_converter(): void
     {
-        $testConvert = Converter::tryConvert(new RecipeIngredient('test', '1/2', 'oz', 'test'), Units::Ml);
+        $testConvert = Converter::tryConvert(new RecipeIngredient('test', 0.5, 'oz', 'test'), Units::Ml);
         $this->assertSame(15.0, $testConvert->amount);
         $this->assertSame('ml', $testConvert->units);
 
-        $testConvert = Converter::tryConvert(new RecipeIngredient('test', '4', 'dash', 'test'), Units::Oz);
-        $this->assertSame('4', $testConvert->amount);
+        $testConvert = Converter::tryConvert(new RecipeIngredient('test', 4.0, 'dash', 'test'), Units::Oz);
+        $this->assertSame(4.0, $testConvert->amount);
         $this->assertSame('dash', $testConvert->units);
 
-        $testConvert = Converter::tryConvert(new RecipeIngredient('test', '1 1/2', '', 'test'), Units::Ml);
-        $this->assertSame('1 1/2', $testConvert->amount);
+        $testConvert = Converter::tryConvert(new RecipeIngredient('test', 1.5, '', 'test'), Units::Ml);
+        $this->assertSame(1.5, $testConvert->amount);
         $this->assertSame('', $testConvert->units);
     }
 }
