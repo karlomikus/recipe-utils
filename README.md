@@ -60,7 +60,9 @@ $ingredient = $ingredientParser->parseLine('15 lorem ingredient names');
 // $ingredient->units === 'test'
 ```
 
-## Convereter usage
+## Unit converter usage
+
+Simple unit conversion implemented with enums. Not made for accuracy. Handles mostly cocktail recipe units (ml, oz, cl, dash...). Can handle fractional display amounts (¾, 1 1/2..).
 
 ```php
 <?php
