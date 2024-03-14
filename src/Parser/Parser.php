@@ -62,13 +62,13 @@ class Parser
         $originalAmount = $amount;
         $amountMax = null;
         if (str_contains($amount, '-')) {
-            $variableAmount = explode('-', $originalAmount);
+            $variableAmount = explode('-', $amount);
             $amountMax = (string) $variableAmount[1];
         }
 
         $ingredient = new RecipeIngredient(
             $name,
-            Unit::fromString($originalAmount)->getValue(),
+            Unit::fromString($amount)->getValue(),
             $units,
             $sourceString,
             $originalAmount,
@@ -131,6 +131,7 @@ class Parser
     {
         $string = html_entity_decode($string);
         $string = str_replace('*', '', $string);
+        $string = str_replace(['–', '–', '—'], '-', $string); // Normalize dashes
 
         if ($encString = iconv('', 'US//TRANSLIT', $string)) {
             $string = trim($encString);
