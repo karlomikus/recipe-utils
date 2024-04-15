@@ -9,6 +9,9 @@ use Kami\RecipeUtils\RecipeIngredient;
 use Kami\RecipeUtils\UnitConverter\Cl;
 use Kami\RecipeUtils\UnitConverter\Ml;
 use Kami\RecipeUtils\UnitConverter\Oz;
+use Kami\RecipeUtils\UnitConverter\Dash;
+use Kami\RecipeUtils\UnitConverter\Part;
+use Kami\RecipeUtils\UnitConverter\Shot;
 use Kami\RecipeUtils\UnitConverter\Units;
 use Kami\RecipeUtils\UnitConverter\Converter;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -39,6 +42,11 @@ class ConverterTest extends TestCase
             ['classFrom' => Cl::class, 'input' => '2.25', 'expected' => 2.25, 'convert' => 'toCl'],
             ['classFrom' => Cl::class, 'input' => '0.5', 'expected' => 16.0, 'convert' => 'toDash'],
             ['classFrom' => Cl::class, 'input' => '1.5', 'expected' => 15.0, 'convert' => 'toMl'],
+
+            ['classFrom' => Dash::class, 'input' => '4', 'expected' => 1.25, 'convert' => 'toMl'],
+
+            ['classFrom' => Shot::class, 'input' => '1', 'expected' => 30.0, 'convert' => 'toMl'],
+            ['classFrom' => Part::class, 'input' => '1', 'expected' => 30.0, 'convert' => 'toMl'],
         ];
     }
 
