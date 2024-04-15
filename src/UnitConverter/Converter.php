@@ -19,7 +19,8 @@ class Converter
         }
 
         $converterClass = __NAMESPACE__ . '\\' . $from->name;
-        $fromUnit = call_user_func($converterClass . '::fromString', $recipeIngredient->amount);
+        $fromValue = AmountValue::from($recipeIngredient->amount);
+        $fromUnit = new $converterClass($fromValue);
         $method = 'to' . $to->name;
 
         if (!method_exists($fromUnit, $method) || in_array($from, $ignoreUnits)) {

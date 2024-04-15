@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kami\RecipeUtils\Parser;
 
 use Kami\RecipeUtils\RecipeIngredient;
+use Kami\RecipeUtils\UnitConverter\AmountValue;
 use Kami\RecipeUtils\UnitConverter\Unit;
 use Kami\RecipeUtils\UnitConverter\Units;
 use Kami\RecipeUtils\UnitConverter\Converter;
@@ -68,12 +69,12 @@ class Parser
 
         $ingredient = new RecipeIngredient(
             $name,
-            Unit::fromString($amount)->getValue(),
+            AmountValue::fromString($amount)->getValue(),
             $units,
             $sourceString,
             $originalAmount,
             $comment,
-            $amountMax ? Unit::fromString($amountMax)->getValue() : null,
+            $amountMax ? AmountValue::fromString($amountMax)->getValue() : null,
         );
 
         if ($convertToUnits) {

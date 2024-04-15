@@ -15,7 +15,7 @@ final class ParserTest extends TestCase
     /**
      * @param array<mixed> $expectedResult
      */
-    #[DataProvider('testIngredientsProvider')]
+    #[DataProvider('provideIngredients')]
     public function testParse(string $sourceString, array $expectedResult): void
     {
         $parser = new Parser();
@@ -34,7 +34,7 @@ final class ParserTest extends TestCase
         }
     }
 
-    public function testCustomUnits(): void
+    public function testParseWithCustomUnits(): void
     {
         $parser = new Parser();
         $parser->setUnitParser(
@@ -86,7 +86,7 @@ final class ParserTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public static function testIngredientsProvider(): array
+    public static function provideIngredients(): array
     {
         return [
             '30 ml Tequila reposado' => [

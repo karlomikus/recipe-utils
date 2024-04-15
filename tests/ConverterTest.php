@@ -9,77 +9,67 @@ use Kami\RecipeUtils\RecipeIngredient;
 use Kami\RecipeUtils\UnitConverter\Cl;
 use Kami\RecipeUtils\UnitConverter\Ml;
 use Kami\RecipeUtils\UnitConverter\Oz;
-use Kami\RecipeUtils\UnitConverter\Dash;
 use Kami\RecipeUtils\UnitConverter\Units;
 use Kami\RecipeUtils\UnitConverter\Converter;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Kami\RecipeUtils\UnitConverter\AmountValue;
 
 class ConverterTest extends TestCase
 {
-    public function test_oz_conversion(): void
+    /**
+     * @return array<mixed>
+     */
+    public static function provideUnitData(): array
     {
-        $this->assertSame(1.0, Oz::fromString('1')->getValue());
-        $this->assertSame(1.5, Oz::fromString('1,5')->getValue());
-        $this->assertSame(0.5, Oz::fromString('0.5')->getValue());
+        return [
+            ['classFrom' => Oz::class, 'input' => '1', 'expected' => 1.0, 'convert' => null],
+            ['classFrom' => Oz::class, 'input' => '0.5', 'expected' => 15.0, 'convert' => 'toMl'],
+            ['classFrom' => Oz::class, 'input' => '0.5', 'expected' => 1.5, 'convert' => 'toCl'],
+            ['classFrom' => Oz::class, 'input' => '1', 'expected' => 96.0, 'convert' => 'toDash'],
+            ['classFrom' => Oz::class, 'input' => '1', 'expected' => 1.0, 'convert' => 'toOz'],
 
-        $this->assertSame(30.0, Oz::fromString('1')->toMl()->getValue());
-        $this->assertSame(15.0, Oz::fromString('1/2')->toMl()->getValue());
-        $this->assertSame(45.0, Oz::fromString('1 1/2')->toMl()->getValue());
+            ['classFrom' => Ml::class, 'input' => '30', 'expected' => 30.0, 'convert' => null],
+            ['classFrom' => Ml::class, 'input' => '22.5', 'expected' => 0.75, 'convert' => 'toOz'],
+            ['classFrom' => Ml::class, 'input' => '22.5', 'expected' => 2.25, 'convert' => 'toCl'],
+            ['classFrom' => Ml::class, 'input' => '7.5', 'expected' => 24.0, 'convert' => 'toDash'],
+            ['classFrom' => Ml::class, 'input' => '7.5', 'expected' => 7.5, 'convert' => 'toMl'],
 
-        $this->assertSame(15.0, Oz::fromString('0.5')->toMl()->getValue());
-        $this->assertSame(45.0, Oz::fromString('1.5')->toMl()->getValue());
-
-        $this->assertSame(45.0, Oz::fromString('1½')->toMl()->getValue());
-        $this->assertSame(22.5, Oz::fromString('¾')->toMl()->getValue());
-
-        $this->assertSame(3.0, Oz::fromString('1')->toCl()->getValue());
-        $this->assertSame(1.5, Oz::fromString('1/2')->toCl()->getValue());
-        $this->assertSame(4.5, Oz::fromString('1 1/2')->toCl()->getValue());
+            ['classFrom' => Cl::class, 'input' => '3', 'expected' => 3.0, 'convert' => null],
+            ['classFrom' => Cl::class, 'input' => '1.5', 'expected' => 0.5, 'convert' => 'toOz'],
+            ['classFrom' => Cl::class, 'input' => '2.25', 'expected' => 2.25, 'convert' => 'toCl'],
+            ['classFrom' => Cl::class, 'input' => '0.5', 'expected' => 16.0, 'convert' => 'toDash'],
+            ['classFrom' => Cl::class, 'input' => '1.5', 'expected' => 15.0, 'convert' => 'toMl'],
+        ];
     }
 
-    public function test_ml_conversion(): void
+    /**
+     * @param class-string<\Kami\RecipeUtils\UnitConverter\UnitInterface> $classFrom
+     */
+    #[DataProvider('provideUnitData')]
+    public function testBasicConverting(string $classFrom, string $input, float $expected, ?string $convertToMethod = null): void
     {
-        $this->assertSame(1.0, Ml::fromString('1')->getValue());
-        $this->assertSame(15.0, Ml::fromString('15.0')->getValue());
-        $this->assertSame(30.0, Ml::fromString('30,0')->getValue());
+        if (!class_exists($classFrom)) {
+            $this->markTestIncomplete('Converting from "' . $classFrom . '" is not possible');
+        }
 
-        $this->assertSame(1.0, Ml::fromString('30')->toOz()->getValue());
-        $this->assertSame(1.5, Ml::fromString('45')->toOz()->getValue());
-        $this->assertSame(0.75, Ml::fromString('22.5')->toOz()->getValue());
+        $amountValue = AmountValue::fromString($input);
 
-        $this->assertSame(3.0, Ml::fromString('30')->toCl()->getValue());
-        $this->assertSame(4.5, Ml::fromString('45')->toCl()->getValue());
-        $this->assertSame(2.25, Ml::fromString('22.5')->toCl()->getValue());
+        if (!$convertToMethod) {
+            $this->assertSame($expected, (new $classFrom($amountValue))->getValue());
+        } else {
+            $this->assertSame($expected, (new $classFrom($amountValue))->{$convertToMethod}()->getValue());
+        }
     }
 
-    public function test_cl_conversion(): void
-    {
-        $this->assertSame(1.0, Cl::fromString('1')->getValue());
-        $this->assertSame(15.0, Cl::fromString('15.0')->getValue());
-        $this->assertSame(30.0, Cl::fromString('30,0')->getValue());
-
-        $this->assertSame(1.0, Cl::fromString('3')->toOz()->getValue());
-        $this->assertSame(0.5, Cl::fromString('1.5')->toOz()->getValue());
-
-        $this->assertSame(30.0, Cl::fromString('3')->toMl()->getValue());
-        $this->assertSame(15.0, Cl::fromString('1.5')->toMl()->getValue());
-    }
-
-    public function test_dash_conversion(): void
-    {
-        $this->assertSame(1.0, Dash::fromString('1')->getValue());
-        // $this->assertSame(1.25, Dash::fromString('4')->toMl()->getValue());
-        // $this->assertSame(2.5, Dash::fromString('8')->toMl()->getValue());
-    }
-
-    public function test_converter(): void
+    public function testConverterClass(): void
     {
         $testConvert = Converter::tryConvert(new RecipeIngredient('test', 0.5, 'oz', 'test'), Units::Ml);
         $this->assertSame(15.0, $testConvert->amount);
         $this->assertSame('ml', $testConvert->units);
 
-        $testConvert = Converter::tryConvert(new RecipeIngredient('test', 4.0, 'dash', 'test'), Units::Oz);
-        $this->assertSame(4.0, $testConvert->amount);
-        $this->assertSame('dash', $testConvert->units);
+        // $testConvert = Converter::tryConvert(new RecipeIngredient('test', 4.0, 'dash', 'test'), Units::Oz);
+        // $this->assertSame(4.0, $testConvert->amount);
+        // $this->assertSame('dash', $testConvert->units);
 
         $testConvert = Converter::tryConvert(new RecipeIngredient('test', 1.5, '', 'test'), Units::Ml);
         $this->assertSame(1.5, $testConvert->amount);

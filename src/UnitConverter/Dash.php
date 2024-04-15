@@ -6,13 +6,8 @@ namespace Kami\RecipeUtils\UnitConverter;
 
 class Dash extends Unit
 {
-    // public function toMl(): Ml
-    // {
-    //     return new Ml($this->getValue() * 0.3125);
-    // }
-
-    public function toDash(): Dash
+    public function toStandardMlValue(): AmountValue
     {
-        return new Dash($this->getValue());
+        return new AmountValue($this->getValue() * 0.3125);
     }
 }

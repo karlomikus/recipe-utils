@@ -6,18 +6,8 @@ namespace Kami\RecipeUtils\UnitConverter;
 
 class Cl extends Unit
 {
-    public function toMl(): Ml
+    public function toStandardMlValue(): AmountValue
     {
-        return new Ml($this->getValue() * 10);
-    }
-
-    public function toOz(): Oz
-    {
-        return new Oz($this->getValue() / 3);
-    }
-
-    public function toCl(): Cl
-    {
-        return new Cl($this->getValue());
+        return new AmountValue($this->getValue() * 10);
     }
 }
