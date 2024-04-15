@@ -10,4 +10,6 @@ enum Units: string
     case Ml = 'ml';
     case Oz = 'oz';
     case Dash = 'dash';
+    case Shot = 'shot';
+    case Part = 'part';
 }

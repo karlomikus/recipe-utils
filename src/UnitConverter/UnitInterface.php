@@ -11,4 +11,6 @@ interface UnitInterface
     public function toCl(): Cl;
     public function toOz(): Oz;
     public function toDash(): Dash;
+    public function toShot(): Shot;
+    public function toPart(): Part;
 }

@@ -35,5 +35,15 @@ abstract class Unit implements UnitInterface
         return new Dash(AmountValue::from($this->toStandardMlValue()->getValue() / 0.3125));
     }
 
+    public function toShot(): Shot
+    {
+        return new Shot($this->toStandardMlValue());
+    }
+
+    public function toPart(): Part
+    {
+        return new Part($this->toStandardMlValue());
+    }
+
     abstract public function toStandardMlValue(): AmountValue;
 }
