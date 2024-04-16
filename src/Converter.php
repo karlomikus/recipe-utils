@@ -16,7 +16,7 @@ class Converter
     public static function tryConvert(RecipeIngredient $recipeIngredient, Units $to, array $ignoreUnits = []): RecipeIngredient
     {
         $from = Units::tryFrom($recipeIngredient->units);
-        if ($from === null) {
+        if ($from === null || in_array($from, $ignoreUnits)) {
             return $recipeIngredient;
         }
 
@@ -25,7 +25,7 @@ class Converter
         $fromUnit = new $converterClass($fromValue);
         $method = 'to' . $to->name;
 
-        if (!method_exists($fromUnit, $method) || in_array($from, $ignoreUnits)) {
+        if (!method_exists($fromUnit, $method)) {
             return $recipeIngredient;
         }
 
