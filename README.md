@@ -69,9 +69,12 @@ Simple unit conversion implemented with enums. Not made for accuracy. Handles mo
 
 declare(strict_types=1);
 
+use Kami\RecipeUtils\Converter;
+use Kami\RecipeUtils\UnitConverter\Oz;
 use Kami\RecipeUtils\UnitConverter\Units;
-use Kami\RecipeUtils\UnitConverter\Converter;
+use Kami\RecipeUtils\UnitConverter\AmountValue;
 
+// Via converter service
 $ingredientToConvert = new RecipeIngredient(
     name: 'Vodka',
     amount: '1 1/2',
@@ -84,4 +87,10 @@ var_dump($convertedIngredient);
 // $ingredient->amount === 45.0
 // $ingredient->units === 'ml'
 // $ingredient->name === 'Vodka'
+
+// Via specific units
+$amountValue = AmountValue::fromString('1 1/2');
+var_dump((new Oz($amountValue))->toMl()->getValue());
+// Output:
+// float: 45.0
 ```
