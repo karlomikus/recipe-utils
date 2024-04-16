@@ -50,7 +50,10 @@ class Parser
         $this->commentParser = new CommentParser();
     }
 
-    public function parseLine(string $sourceString, ?Units $convertToUnits = null): RecipeIngredient
+    /**
+     * @param array<Units> $ignoreUnits
+     */
+    public function parseLine(string $sourceString, ?Units $convertToUnits = null, array $ignoreUnits = []): RecipeIngredient
     {
         $baseString = $this->normalizeString($sourceString);
 
@@ -79,7 +82,8 @@ class Parser
         if ($convertToUnits) {
             return Converter::tryConvert(
                 $ingredient,
-                $convertToUnits
+                $convertToUnits,
+                $ignoreUnits
             );
         }
 
@@ -122,9 +126,12 @@ class Parser
         return $this->units;
     }
 
-    public static function line(string $sourceString, ?Units $convertToUnits = null): RecipeIngredient
+    /**
+     * @param array<Units> $ignoreUnits
+     */
+    public static function line(string $sourceString, ?Units $convertToUnits = null, array $ignoreUnits = []): RecipeIngredient
     {
-        return (new self())->parseLine($sourceString, $convertToUnits);
+        return (new self())->parseLine($sourceString, $convertToUnits, $ignoreUnits);
     }
 
     private function normalizeString(string $string): string
