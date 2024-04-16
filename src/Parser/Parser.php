@@ -6,9 +6,8 @@ namespace Kami\RecipeUtils\Parser;
 
 use Kami\RecipeUtils\RecipeIngredient;
 use Kami\RecipeUtils\UnitConverter\AmountValue;
-use Kami\RecipeUtils\UnitConverter\Unit;
 use Kami\RecipeUtils\UnitConverter\Units;
-use Kami\RecipeUtils\UnitConverter\Converter;
+use Kami\RecipeUtils\Converter;
 
 class Parser
 {

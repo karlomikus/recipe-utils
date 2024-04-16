@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kami\RecipeUtilsTests;
 
+use Kami\RecipeUtils\Converter;
 use PHPUnit\Framework\TestCase;
 use Kami\RecipeUtils\RecipeIngredient;
 use Kami\RecipeUtils\UnitConverter\Cl;
@@ -13,7 +14,6 @@ use Kami\RecipeUtils\UnitConverter\Dash;
 use Kami\RecipeUtils\UnitConverter\Part;
 use Kami\RecipeUtils\UnitConverter\Shot;
 use Kami\RecipeUtils\UnitConverter\Units;
-use Kami\RecipeUtils\UnitConverter\Converter;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Kami\RecipeUtils\UnitConverter\AmountValue;
 
@@ -75,9 +75,9 @@ class ConverterTest extends TestCase
         $this->assertSame(15.0, $testConvert->amount);
         $this->assertSame('ml', $testConvert->units);
 
-        // $testConvert = Converter::tryConvert(new RecipeIngredient('test', 4.0, 'dash', 'test'), Units::Oz);
-        // $this->assertSame(4.0, $testConvert->amount);
-        // $this->assertSame('dash', $testConvert->units);
+        $testConvert = Converter::tryConvert(new RecipeIngredient('test', 4.0, 'dash', 'test'), Units::Oz, [Units::Dash]);
+        $this->assertSame(4.0, $testConvert->amount);
+        $this->assertSame('dash', $testConvert->units);
 
         $testConvert = Converter::tryConvert(new RecipeIngredient('test', 1.5, '', 'test'), Units::Ml);
         $this->assertSame(1.5, $testConvert->amount);

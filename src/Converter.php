@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Kami\RecipeUtils\UnitConverter;
+namespace Kami\RecipeUtils;
 
 use Kami\RecipeUtils\RecipeIngredient;
+use Kami\RecipeUtils\UnitConverter\Units;
+use Kami\RecipeUtils\UnitConverter\AmountValue;
 
 class Converter
 {
@@ -18,7 +20,7 @@ class Converter
             return $recipeIngredient;
         }
 
-        $converterClass = __NAMESPACE__ . '\\' . $from->name;
+        $converterClass = $from->getClassName();
         $fromValue = AmountValue::from($recipeIngredient->amount);
         $fromUnit = new $converterClass($fromValue);
         $method = 'to' . $to->name;
