@@ -39,4 +39,12 @@ class Converter
             $recipeIngredient->amountMax
         );
     }
+
+    public static function fromTo(float $amount, Units $from, Units $to): float
+    {
+        $fromValue = AmountValue::from($amount);
+        $fromClass = $from->getClassName();
+
+        return (new $fromClass($fromValue))->{'to' . $to->name}()->getValue();
+    }
 }

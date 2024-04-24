@@ -83,4 +83,11 @@ class ConverterTest extends TestCase
         $this->assertSame(1.5, $testConvert->amount);
         $this->assertSame('', $testConvert->units);
     }
+
+    public function testSimpleConvert(): void
+    {
+        $this->assertSame(1.0, Converter::fromTo(30.0, Units::Ml, Units::Oz));
+        $this->assertSame(30.0, Converter::fromTo(1.0, Units::Oz, Units::Ml));
+        $this->assertSame(3.0, Converter::fromTo(30.0, Units::Ml, Units::Cl));
+    }
 }
