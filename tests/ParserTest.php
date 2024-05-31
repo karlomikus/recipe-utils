@@ -276,6 +276,17 @@ final class ParserTest extends TestCase
                     'comment' => 'preferebly a brand name'
                 ]
             ],
+            '3/4 to 1 ounce eggnog (see Editor\'s Note)' => [
+                '3/4 to 1 ounce eggnog (see Editor\'s Note)',
+                [
+                    'original_amount' => '3/4 - 1',
+                    'amount' => 0.75,
+                    'amount_max' => 1.0,
+                    'units' => 'oz',
+                    'name' => 'eggnog',
+                    'comment' => 'see Editor\'s Note'
+                ]
+            ],
         ];
     }
 }
