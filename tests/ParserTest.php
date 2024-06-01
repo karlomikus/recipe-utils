@@ -287,6 +287,16 @@ final class ParserTest extends TestCase
                     'comment' => 'see Editor\'s Note'
                 ]
             ],
+            '2 ounces pineapple juice, frozen into two 1-ounce cubes' => [
+                '2 ounces pineapple juice, frozen into two 1-ounce cubes',
+                [
+                    'original_amount' => '2',
+                    'amount' => 2.0,
+                    'units' => 'oz',
+                    'name' => 'pineapple juice',
+                    'comment' => 'frozen into two 1-ounce cubes'
+                ]
+            ],
         ];
     }
 }

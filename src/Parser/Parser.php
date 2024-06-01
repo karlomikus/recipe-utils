@@ -23,7 +23,7 @@ class Parser
      * @var array<string, array<string>>
      */
     private array $units = [
-        'oz' => ['oz.', 'ounce', 'fl-oz', 'oz', 'ounces'],
+        'oz' => ['oz.', 'ounces', 'fl-oz', 'oz', 'ounce'],
         'ml' => ['ml', 'ml.', 'milliliter', 'milliliters'],
         'cl' => ['cl', 'cl.', 'centiliter', 'centiliters'],
         'dash' => ['dashes', 'dash'],

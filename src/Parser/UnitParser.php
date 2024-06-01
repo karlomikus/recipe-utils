@@ -18,8 +18,11 @@ class UnitParser implements StringParserInterface
         foreach ($this->units as $unit => $alts) {
             foreach ($alts as $matchUnit) {
                 // Match the whole word
-                if (preg_match('/\b' . $matchUnit . '\b/i', $sourceString) === 1) {
-                    return [$unit, trim(preg_replace('/\b' . $matchUnit . '\b/i', '', $sourceString) ?? '', " \n\r\t\v\x00\.")];
+                // Note: This will still have problems matching ingredients if they
+                // have multiple matches in the string, so it's difficult to guess order of matching
+                $matchWholeWordRegex = '/\b' . $matchUnit . '\b/i';
+                if (preg_match($matchWholeWordRegex, $sourceString) === 1) {
+                    return [$unit, trim(preg_replace($matchWholeWordRegex, '', $sourceString) ?? '', " \n\r\t\v\x00\.")];
                 }
             }
         }
