@@ -36,7 +36,7 @@ class AmountParser implements StringParserInterface
 
             $restOfTheString = $sourceString;
             if ($amount !== '') {
-                $restOfTheString = explode($amount, $sourceString)[1];
+                $restOfTheString = explode($amount, $sourceString, 2)[1];
             }
 
             return [trim($amount), trim($restOfTheString)];

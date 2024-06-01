@@ -297,6 +297,16 @@ final class ParserTest extends TestCase
                     'comment' => 'frozen into two 1-ounce cubes'
                 ]
             ],
+            '1 ounce Coco mix (3:1, Coco Lopez: coconut milk) ' => [
+                '1 ounce Coco mix (3:1, Coco Lopez: coconut milk) ',
+                [
+                    'original_amount' => '1',
+                    'amount' => 1.0,
+                    'units' => 'oz',
+                    'name' => 'Coco mix',
+                    'comment' => '3:1, Coco Lopez: coconut milk'
+                ]
+            ],
         ];
     }
 }
