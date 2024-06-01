@@ -317,6 +317,16 @@ final class ParserTest extends TestCase
                     'comment' => 'frozen into one 1-ounce cube'
                 ]
             ],
+            '1 “hard ice” cube (one 1-ounce cube of frozen water)' => [
+                '1 “hard ice” cube (one 1-ounce cube of frozen water)',
+                [
+                    'original_amount' => '1',
+                    'amount' => 1.0,
+                    'units' => 'cube',
+                    'name' => '"hard ice"',
+                    'comment' => 'one 1-ounce cube of frozen water'
+                ]
+            ],
         ];
     }
 }

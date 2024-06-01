@@ -40,6 +40,7 @@ class Parser
         'topup' => ['topup'],
         'part' => ['part', 'parts'],
         'wedge' => ['wedge', 'wedges'],
+        'cube' => ['cubes', 'cube'],
     ];
 
     public function __construct()
@@ -58,8 +59,8 @@ class Parser
         $baseString = $this->normalizeString($sourceString);
 
         [$amount, $baseString] = $this->amountParser->parse($baseString);
-        [$units, $baseString] = $this->unitParser->parse($baseString);
         [$comment, $baseString] = $this->commentParser->parse($baseString);
+        [$units, $baseString] = $this->unitParser->parse($baseString);
         [$name, $baseString] = $this->nameParser->parse($baseString);
 
         $originalAmount = $amount;
