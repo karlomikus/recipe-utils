@@ -307,6 +307,16 @@ final class ParserTest extends TestCase
                     'comment' => '3:1, Coco Lopez: coconut milk'
                 ]
             ],
+            '1 ounce pomegranate juice, frozen into one 1-ounce cube' => [
+                '1 ounce pomegranate juice, frozen into one 1-ounce cube',
+                [
+                    'original_amount' => '1',
+                    'amount' => 1.0,
+                    'units' => 'oz',
+                    'name' => 'pomegranate juice',
+                    'comment' => 'frozen into one 1-ounce cube'
+                ]
+            ],
         ];
     }
 }

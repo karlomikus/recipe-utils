@@ -22,7 +22,7 @@ class UnitParser implements StringParserInterface
                 // have multiple matches in the string, so it's difficult to guess order of matching
                 $matchWholeWordRegex = '/\b' . $matchUnit . '\b/i';
                 if (preg_match($matchWholeWordRegex, $sourceString) === 1) {
-                    return [$unit, trim(preg_replace($matchWholeWordRegex, '', $sourceString) ?? '', " \n\r\t\v\x00\.")];
+                    return [$unit, trim(preg_replace($matchWholeWordRegex, '', $sourceString, 1) ?? '', " \n\r\t\v\x00\.")];
                 }
             }
         }
