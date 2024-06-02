@@ -24,7 +24,7 @@ jobs:
       run: composer install --prefer-dist --no-progress
 
     - name: Check coding style
-      run: composer cs
+      run: vendor/bin/ecs check --clear-cache
 
     - name: Execute phpstan checks
       run: composer phpstan
