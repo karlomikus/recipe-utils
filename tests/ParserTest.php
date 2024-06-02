@@ -250,7 +250,7 @@ final class ParserTest extends TestCase
             '7,5 ml Comma test' => [
                 '7,5 ml Comma test',
                 [
-                    'original_amount' => '7,5',
+                    'original_amount' => '7.5',
                     'amount' => 7.5,
                     'units' => 'ml',
                     'name' => 'Comma test'

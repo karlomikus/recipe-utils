@@ -58,8 +58,8 @@ class Parser
     {
         $baseString = $this->normalizeString($sourceString);
 
-        [$amount, $baseString] = $this->amountParser->parse($baseString);
         [$comment, $baseString] = $this->commentParser->parse($baseString);
+        [$amount, $baseString] = $this->amountParser->parse($baseString);
         [$units, $baseString] = $this->unitParser->parse($baseString);
         [$name, $baseString] = $this->nameParser->parse($baseString);
 
@@ -146,7 +146,9 @@ class Parser
         }
 
         // Check multiple spaces and replace with a single space
-        $string = preg_replace('/[\s]+/', ' ', $string);
+        $string = preg_replace('/[\s]+/', ' ', $string) ?? '';
+        // Convert all decimals with comma to decimals with dot, helps with comment parsing
+        $string = preg_replace('/(?<=\d),(?=\d)/', '.', $string);
 
         return $string ?? '';
     }

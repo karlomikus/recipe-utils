@@ -30,7 +30,8 @@ class AmountParser implements StringParserInterface
         }
 
         // Match specific amounts (ex: 30 ml ingredient, 1 1/2 oz ingredient)
-        $hasSpecificAmount = preg_match('/^(\d+\/\d+)|(\d+\s\d+\/\d+)|(\d+.\d+)|\d+/', $sourceString, $specMatches);
+        $matchSpecificAmountRegex = '/^(\d+\/\d+)|(\d+\s\d+\/\d+)|(\d+.\d+)|\d+/';
+        $hasSpecificAmount = preg_match($matchSpecificAmountRegex, $sourceString, $specMatches);
         if ($hasSpecificAmount === 1) {
             $amount = $specMatches[0];
 
