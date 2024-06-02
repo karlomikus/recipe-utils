@@ -26,12 +26,12 @@ class AmountParser implements StringParserInterface
                 $restOfTheString
             ];
 
-            return array_filter(array_map('trim', $result));
+            return array_map('trim', $result);
         }
 
         // Match specific amounts (ex: 30 ml ingredient, 1 1/2 oz ingredient)
-        $matchSpecificAmountRegex = '/^(\d+\/\d+)|(\d+\s\d+\/\d+)|(\d+.\d+)|\d+/';
-        $hasSpecificAmount = preg_match($matchSpecificAmountRegex, $sourceString, $specMatches);
+        $matchWholeIntegersAndFractions = '/^(\d+\/\d+)|(\d+\s\d+\/\d+)|(\d+.\d+)|\d+/';
+        $hasSpecificAmount = preg_match($matchWholeIntegersAndFractions, $sourceString, $specMatches);
         if ($hasSpecificAmount === 1) {
             $amount = $specMatches[0];
 

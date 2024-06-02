@@ -23,7 +23,8 @@
         "phpunit/phpunit": "^10.3",
         "phpstan/phpstan": "^1.10",
         "symplify/easy-coding-standard": "^12.0",
-        "symfony/var-dumper": "^7.1"
+        "symfony/var-dumper": "^7.1",
+        "phpunit/php-code-coverage": "^10.1"
     },
     "scripts": {
         "phpstan": "vendor/bin/phpstan analyse",

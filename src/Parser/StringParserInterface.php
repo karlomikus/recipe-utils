@@ -10,7 +10,7 @@ interface StringParserInterface
      * Parse the initial string and return the parsed result and the rest of the string
      *
      * @param string $sourceString Initial string
-     * @return array<int, string>
+     * @return array{string, string}
      */
     public function parse(string $sourceString): array;
 }

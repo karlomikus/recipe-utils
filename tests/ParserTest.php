@@ -9,6 +9,7 @@ use Kami\RecipeUtils\Parser\Parser;
 use Kami\RecipeUtils\Parser\UnitParser;
 use Kami\RecipeUtils\UnitConverter\Units;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Kami\RecipeUtils\Parser\StringParserInterface;
 
 final class ParserTest extends TestCase
 {
@@ -81,6 +82,49 @@ final class ParserTest extends TestCase
         $this->assertSame(45.0, $recipeIngredient->amount);
         $this->assertSame('ml', $recipeIngredient->units);
         $this->assertSame('mezcal', $recipeIngredient->name);
+    }
+
+    public function testCustomParsers(): void
+    {
+        $parser = new Parser();
+        $parser->setAmountParser(new class() implements StringParserInterface {
+            public function parse(string $sourceString): array
+            {
+                return ['55', '2'];
+            }
+        });
+        $parser->setCommentParser(new class() implements StringParserInterface {
+            public function parse(string $sourceString): array
+            {
+                return ['comment', '4'];
+            }
+        });
+        $parser->setNameParser(new class() implements StringParserInterface {
+            public function parse(string $sourceString): array
+            {
+                return ['name', '6'];
+            }
+        });
+        $parser->setUnitParser(new class() implements StringParserInterface {
+            public function parse(string $sourceString): array
+            {
+                return ['unit', '8'];
+            }
+        });
+        $ing = $parser->parseLine('TEST');
+
+        $this->assertSame(55.0, $ing->amount);
+        $this->assertSame('comment', $ing->comment);
+        $this->assertSame('name', $ing->name);
+        $this->assertSame('unit', $ing->units);
+    }
+
+    public function testGetUnitsFromParser(): void
+    {
+        $parser = new Parser();
+
+        $this->assertIsArray($parser->getUnits());
+        $this->assertNotEmpty($parser->getUnits());
     }
 
     /**
@@ -337,6 +381,15 @@ final class ParserTest extends TestCase
                     'name' => 'lime juice',
                 ]
             ],
+            // '2 12-ounce bottles Miller High Life' => [
+            //     '2 12-ounce bottles Miller High Life',
+            //     [
+            //         'original_amount' => '2',
+            //         'amount' => 2,
+            //         'units' => 'bottle',
+            //         'name' => 'Miller High Life',
+            //     ]
+            // ],
         ];
     }
 }
