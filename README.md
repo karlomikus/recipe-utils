@@ -1,5 +1,7 @@
 # Recipe Utilities
 
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/karlomikus/recipe-utils/code.yml)
+
 Utilities for extracting ingredient data from (mostly cocktail) recipes into structured objects.
 
 ## Install
