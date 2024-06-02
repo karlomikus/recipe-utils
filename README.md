@@ -1,6 +1,8 @@
 # Recipe Utilities
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/karlomikus/recipe-utils/code.yml)
+![Packagist Version](https://img.shields.io/packagist/v/karlomikus/recipe-utils)
+![GitHub License](https://img.shields.io/github/license/karlomikus/recipe-utils)
 
 Utilities for extracting ingredient data from (mostly cocktail) recipes into structured objects.
 
