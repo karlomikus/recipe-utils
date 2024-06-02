@@ -12,7 +12,7 @@ class AmountParser implements StringParserInterface
 
         // Match variable amounts (ex: 3-6 mint sprigs)
         $matchIntOrFraction = '(?:[1-9][0-9]*|0)(?:\/[1-9][0-9]*)?';
-        $hasVariableAmount = preg_match('/^(\d+\-\d+)|^(\d+\s\-\s\d+)|^(' . $matchIntOrFraction . '\s(to|or)\s' . $matchIntOrFraction . ')/', $sourceString, $varMatches);
+        $hasVariableAmount = preg_match('/^(' . $matchIntOrFraction . '\-' . $matchIntOrFraction . ')|^(' . $matchIntOrFraction . '\s\-\s' . $matchIntOrFraction . ')|^(' . $matchIntOrFraction . '\s(to|or)\s' . $matchIntOrFraction . ')/', $sourceString, $varMatches);
         if ($hasVariableAmount === 1) {
             $amount = $varMatches[0];
 

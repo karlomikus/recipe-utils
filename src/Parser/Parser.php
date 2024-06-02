@@ -145,6 +145,7 @@ class Parser
             $string = trim($encString);
         }
 
+        // TODO: Check for missing closing brackets
         // Check multiple spaces and replace with a single space
         $string = preg_replace('/[\s]+/', ' ', $string) ?? '';
         // Convert all decimals with comma to decimals with dot, helps with comment parsing

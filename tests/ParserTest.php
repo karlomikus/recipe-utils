@@ -327,6 +327,16 @@ final class ParserTest extends TestCase
                     'comment' => 'one 1-ounce cube of frozen water'
                 ]
             ],
+            '1/2 - 3/4 ounce lime juice' => [
+                '1/2 - 3/4 ounce lime juice',
+                [
+                    'original_amount' => '1/2 - 3/4',
+                    'amount' => 0.5,
+                    'amount_max' => 0.75,
+                    'units' => 'oz',
+                    'name' => 'lime juice',
+                ]
+            ],
         ];
     }
 }
