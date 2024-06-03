@@ -10,16 +10,10 @@ class CommentParser implements StringParserInterface
     {
         $comment = '';
 
-        // Match string between brackets
-        preg_match('/\((.*?)\)/', $sourceString, $bracketMatcher);
+        // Match string between brackets or after comma
+        preg_match('/\((.*?)\)|\,(.*)/', $sourceString, $bracketMatcher);
         if (isset($bracketMatcher[1])) {
-            return [trim($bracketMatcher[1]), trim(str_replace($bracketMatcher[0], '', $sourceString))];
-        }
-
-        // Match string after comma
-        preg_match('/\,(.*)/', $sourceString, $commaMatcher);
-        if (isset($commaMatcher[1])) {
-            return [trim($commaMatcher[1]), trim(str_replace($commaMatcher[0], '', $sourceString))];
+            return [trim($bracketMatcher[0], ",()\n\r\t\v\0 "), trim(str_replace($bracketMatcher[0], '', $sourceString))];
         }
 
         return [$comment, $sourceString];

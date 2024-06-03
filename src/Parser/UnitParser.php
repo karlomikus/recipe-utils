@@ -21,7 +21,7 @@ class UnitParser implements StringParserInterface
                 // Note: This will still have problems matching ingredients if they
                 // have multiple matches in the string, so it's difficult to guess order of matching
                 $matchWholeWordRegex = '/\b' . $matchUnit . '\b/i';
-                if (preg_match($matchWholeWordRegex, $sourceString) === 1) {
+                if (preg_match($matchWholeWordRegex, $sourceString) === 1) { // TODO: Switch to word for word matching...
                     return [$unit, trim(preg_replace($matchWholeWordRegex, '', $sourceString, 1) ?? '', " \n\r\t\v\x00\.")];
                 }
             }

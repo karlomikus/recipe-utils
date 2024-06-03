@@ -381,13 +381,14 @@ final class ParserTest extends TestCase
                     'name' => 'lime juice',
                 ]
             ],
-            // '2 12-ounce bottles Miller High Life' => [
-            //     '2 12-ounce bottles Miller High Life',
+            // '12 ounce ounces ml oz, test (bottles)' => [
+            //     '12 ounce ounces ml oz, test (bottles)',
             //     [
-            //         'original_amount' => '2',
-            //         'amount' => 2,
-            //         'units' => 'bottle',
-            //         'name' => 'Miller High Life',
+            //         'original_amount' => '12',
+            //         'amount' => 12.0,
+            //         'units' => 'oz',
+            //         'name' => 'ounces ml oz',
+            //         'comment' => 'test (bottles)',
             //     ]
             // ],
         ];

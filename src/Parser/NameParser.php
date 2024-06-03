@@ -8,8 +8,7 @@ class NameParser implements StringParserInterface
 {
     public function parse(string $sourceString): array
     {
-        // Remove everything between brackets, and after comma
-        $sourceString = trim(preg_replace('/\((.*?)\)|\,(.*)/', '', $sourceString) ?? '');
+        $sourceString = trim($sourceString);
 
         return [$sourceString, ''];
     }

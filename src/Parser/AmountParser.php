@@ -12,7 +12,10 @@ class AmountParser implements StringParserInterface
 
         // Match variable amounts (ex: 3-6 mint sprigs)
         $matchIntOrFraction = '(?:[1-9][0-9]*|0)(?:\/[1-9][0-9]*)?';
-        $hasVariableAmount = preg_match('/^(' . $matchIntOrFraction . '\-' . $matchIntOrFraction . ')|^(' . $matchIntOrFraction . '\s\-\s' . $matchIntOrFraction . ')|^(' . $matchIntOrFraction . '\s(to|or)\s' . $matchIntOrFraction . ')/', $sourceString, $varMatches);
+        $stringVariableMatchers = ['to', 'or'];
+        $variableAmountRegex = '/^(' . $matchIntOrFraction . '\-' . $matchIntOrFraction . ')|^(' . $matchIntOrFraction . '\s\-\s' . $matchIntOrFraction . ')|^(' . $matchIntOrFraction . '\s(' . implode('|', $stringVariableMatchers) . ')\s' . $matchIntOrFraction . ')/';
+
+        $hasVariableAmount = preg_match($variableAmountRegex, $sourceString, $varMatches);
         if ($hasVariableAmount === 1) {
             $amount = $varMatches[0];
 
@@ -22,11 +25,11 @@ class AmountParser implements StringParserInterface
             }
 
             $result = [
-                str_replace(['to', 'or'], '-', $amount),
+                str_replace($stringVariableMatchers, '-', $amount),
                 $restOfTheString
             ];
 
-            return array_map('trim', $result);
+            return array_map(trim(...), $result);
         }
 
         // Match specific amounts (ex: 30 ml ingredient, 1 1/2 oz ingredient)
