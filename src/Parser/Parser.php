@@ -42,6 +42,7 @@ class Parser
         'wedge' => ['wedge', 'wedges'],
         'cube' => ['cubes', 'cube'],
         'bottle' => ['bottles', 'bottle'],
+        'can' => ['cans', 'can'],
     ];
 
     public function __construct()
