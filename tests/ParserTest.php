@@ -23,7 +23,6 @@ final class ParserTest extends TestCase
 
         $result = $parser->parseLine($sourceString);
         $this->assertSame($expectedResult['amount'], $result->amount, sprintf('Wrong amount for "%s"', $sourceString));
-        $this->assertSame($expectedResult['original_amount'], $result->originalAmount, sprintf('Wrong original amount for "%s"', $sourceString));
         $this->assertSame($expectedResult['units'], $result->units, sprintf('Wrong units for "%s"', $sourceString));
         $this->assertSame($expectedResult['name'], $result->name, sprintf('Wrong name for "%s"', $sourceString));
         $this->assertSame($sourceString, $result->source);
@@ -46,7 +45,6 @@ final class ParserTest extends TestCase
 
         $result = $parser->parseLine('15 lorem ingredient names');
         $this->assertSame('test', $result->units);
-        $this->assertSame('15', $result->originalAmount);
         $this->assertSame(15.0, $result->amount);
         $this->assertSame('ingredient names', $result->name);
     }
@@ -55,7 +53,6 @@ final class ParserTest extends TestCase
     {
         $parsed = Parser::line('30 ml Tequila reposado');
 
-        $this->assertSame('30', $parsed->originalAmount);
         $this->assertSame(30.0, $parsed->amount);
     }
 
@@ -136,7 +133,6 @@ final class ParserTest extends TestCase
             '30 ml Tequila reposado' => [
                 '30 ml Tequila reposado',
                 [
-                    'original_amount' => '30',
                     'amount' => 30.0,
                     'units' => 'ml',
                     'name' => 'Tequila reposado'
@@ -145,7 +141,6 @@ final class ParserTest extends TestCase
             '4 ounces (½ cup) ginger beer' => [
                 '4 ounces (½ cup) ginger beer',
                 [
-                    'original_amount' => '4',
                     'amount' => 4.0,
                     'units' => 'oz',
                     'name' => 'ginger beer'
@@ -154,7 +149,6 @@ final class ParserTest extends TestCase
             '0.5 oz John D. Taylor’s Velvet Falernum' => [
                 '0.5 oz John D. Taylor’s Velvet Falernum',
                 [
-                    'original_amount' => '0.5',
                     'amount' => 0.5,
                     'units' => 'oz',
                     'name' => 'John D. Taylor\'s Velvet Falernum'
@@ -163,7 +157,6 @@ final class ParserTest extends TestCase
             '1 1/2 oz. mezcal (Talbert uses Del Maguey Vida)' => [
                 '1 1/2 oz. mezcal (Talbert uses Del Maguey Vida)',
                 [
-                    'original_amount' => '1 1/2',
                     'amount' => 1.5,
                     'units' => 'oz',
                     'name' => 'mezcal',
@@ -173,7 +166,6 @@ final class ParserTest extends TestCase
             '1 sliced strawberry' => [
                 '1 sliced strawberry',
                 [
-                    'original_amount' => '1',
                     'amount' => 1.0,
                     'units' => 'slice',
                     'name' => 'strawberry'
@@ -182,7 +174,6 @@ final class ParserTest extends TestCase
             '2-3 mint sprigs' => [
                 '2-3 mint sprigs',
                 [
-                    'original_amount' => '2-3',
                     'amount' => 2.0,
                     'amount_max' => 3.0,
                     'units' => 'sprigs',
@@ -192,7 +183,6 @@ final class ParserTest extends TestCase
             '2 to 3 mint sprigs' => [
                 '2 to 3 mint sprigs',
                 [
-                    'original_amount' => '2 - 3',
                     'amount' => 2.0,
                     'amount_max' => 3.0,
                     'units' => 'sprigs',
@@ -202,7 +192,6 @@ final class ParserTest extends TestCase
             '2 or 3 mint sprigs' => [
                 '2 or 3 mint sprigs',
                 [
-                    'original_amount' => '2 - 3',
                     'amount' => 2.0,
                     'amount_max' => 3.0,
                     'units' => 'sprigs',
@@ -212,7 +201,6 @@ final class ParserTest extends TestCase
             '2 oz. spiced rum' => [
                 '2 oz. spiced rum',
                 [
-                    'original_amount' => '2',
                     'amount' => 2.0,
                     'units' => 'oz',
                     'name' => 'spiced rum'
@@ -221,7 +209,6 @@ final class ParserTest extends TestCase
             'Maraschino cherries' => [
                 'Maraschino cherries',
                 [
-                    'original_amount' => '0',
                     'amount' => 0.0,
                     'units' => '',
                     'name' => 'Maraschino cherries'
@@ -230,7 +217,6 @@ final class ParserTest extends TestCase
             'barspoon Pedro Ximenez' => [
                 'barspoon Pedro Ximenez',
                 [
-                    'original_amount' => '0',
                     'amount' => 0.0,
                     'units' => 'barspoon',
                     'name' => 'Pedro Ximenez'
@@ -239,7 +225,6 @@ final class ParserTest extends TestCase
             '2-3 large basil leaves' => [
                 '2-3 large basil leaves',
                 [
-                    'original_amount' => '2-3',
                     'amount' => 2.0,
                     'amount_max' => 3.0,
                     'units' => 'leaves',
@@ -249,7 +234,6 @@ final class ParserTest extends TestCase
             '2 Dashes Angostura Bitters' => [
                 '2 Dashes Angostura Bitters',
                 [
-                    'original_amount' => '2',
                     'amount' => 2.0,
                     'units' => 'dash',
                     'name' => 'Angostura Bitters'
@@ -258,7 +242,6 @@ final class ParserTest extends TestCase
             '30 ml' => [
                 '30 ml',
                 [
-                    'original_amount' => '30',
                     'amount' => 30.0,
                     'units' => 'ml',
                     'name' => ''
@@ -267,7 +250,6 @@ final class ParserTest extends TestCase
             '2.5 oz' => [
                 '2.5 oz',
                 [
-                    'original_amount' => '2.5',
                     'amount' => 2.5,
                     'units' => 'oz',
                     'name' => ''
@@ -276,7 +258,6 @@ final class ParserTest extends TestCase
             '1 1/2 oz.' => [
                 '1 1/2 oz.',
                 [
-                    'original_amount' => '1 1/2',
                     'amount' => 1.5,
                     'units' => 'oz',
                     'name' => ''
@@ -285,7 +266,6 @@ final class ParserTest extends TestCase
             '3 lemon wedges' => [
                 '3 lemon wedges',
                 [
-                    'original_amount' => '3',
                     'amount' => 3.0,
                     'units' => 'wedge',
                     'name' => 'lemon'
@@ -294,7 +274,6 @@ final class ParserTest extends TestCase
             '7,5 ml Comma test' => [
                 '7,5 ml Comma test',
                 [
-                    'original_amount' => '7.5',
                     'amount' => 7.5,
                     'units' => 'ml',
                     'name' => 'Comma test'
@@ -303,7 +282,6 @@ final class ParserTest extends TestCase
             '15 ml Vodka (citron)' => [
                 '15 ml Vodka (citron)',
                 [
-                    'original_amount' => '15',
                     'amount' => 15.0,
                     'units' => 'ml',
                     'name' => 'Vodka',
@@ -313,7 +291,6 @@ final class ParserTest extends TestCase
             '15 ml Tequila reposado, preferebly a brand name' => [
                 '15 ml Tequila reposado, preferebly a brand name',
                 [
-                    'original_amount' => '15',
                     'amount' => 15.0,
                     'units' => 'ml',
                     'name' => 'Tequila reposado',
@@ -323,7 +300,6 @@ final class ParserTest extends TestCase
             '3/4 to 1 ounce eggnog (see Editor\'s Note)' => [
                 '3/4 to 1 ounce eggnog (see Editor\'s Note)',
                 [
-                    'original_amount' => '3/4 - 1',
                     'amount' => 0.75,
                     'amount_max' => 1.0,
                     'units' => 'oz',
@@ -334,7 +310,6 @@ final class ParserTest extends TestCase
             '2 ounces pineapple juice, frozen into two 1-ounce cubes' => [
                 '2 ounces pineapple juice, frozen into two 1-ounce cubes',
                 [
-                    'original_amount' => '2',
                     'amount' => 2.0,
                     'units' => 'oz',
                     'name' => 'pineapple juice',
@@ -344,7 +319,6 @@ final class ParserTest extends TestCase
             '1 ounce Coco mix (3:1, Coco Lopez: coconut milk) ' => [
                 '1 ounce Coco mix (3:1, Coco Lopez: coconut milk) ',
                 [
-                    'original_amount' => '1',
                     'amount' => 1.0,
                     'units' => 'oz',
                     'name' => 'Coco mix',
@@ -354,7 +328,6 @@ final class ParserTest extends TestCase
             '1 ounce pomegranate juice, frozen into one 1-ounce cube' => [
                 '1 ounce pomegranate juice, frozen into one 1-ounce cube',
                 [
-                    'original_amount' => '1',
                     'amount' => 1.0,
                     'units' => 'oz',
                     'name' => 'pomegranate juice',
@@ -364,7 +337,6 @@ final class ParserTest extends TestCase
             '1 “hard ice” cube (one 1-ounce cube of frozen water)' => [
                 '1 “hard ice” cube (one 1-ounce cube of frozen water)',
                 [
-                    'original_amount' => '1',
                     'amount' => 1.0,
                     'units' => 'cube',
                     'name' => '"hard ice"',
@@ -374,7 +346,6 @@ final class ParserTest extends TestCase
             '1/2 - 3/4 ounce lime juice' => [
                 '1/2 - 3/4 ounce lime juice',
                 [
-                    'original_amount' => '1/2 - 3/4',
                     'amount' => 0.5,
                     'amount_max' => 0.75,
                     'units' => 'oz',
@@ -384,11 +355,30 @@ final class ParserTest extends TestCase
             // '12 ounce ounces ml oz, test (bottles)' => [
             //     '12 ounce ounces ml oz, test (bottles)',
             //     [
-            //         'original_amount' => '12',
             //         'amount' => 12.0,
             //         'units' => 'oz',
             //         'name' => 'ounces ml oz',
             //         'comment' => 'test (bottles)',
+            //     ]
+            // ],
+            // '½ to 1½ teaspoons hot pepper sauce, or to taste' => [
+            //     '½ to 1½ teaspoons hot pepper sauce, or to taste',
+            //     [
+            //         'amount' => 0.5,
+            //         'amount_max' => 1.0,
+            //         'units' => 'barspoon',
+            //         'name' => '1/2  hot pepper sauce',
+            //         'comment' => 'or to taste',
+            //     ]
+            // ],
+            // 'a splash of soda' => [
+            //     'a splash of guaraná juice or soda',
+            //     [
+            //         'amount' => 0.5,
+            //         'amount_max' => 1.0,
+            //         'units' => 'barspoon',
+            //         'name' => '1/2  hot pepper sauce',
+            //         'comment' => 'or to taste',
             //     ]
             // ],
         ];

@@ -18,6 +18,11 @@ $ composer require karlomikus/recipe-utils
 
 All parse methods return object of type `Kami\RecipeUtils\RecipeIngredient`.
 
+Supported formats:
+- Variable amounts and fractional amounts: "1 - 2", "0.5 to 1", "½ or 2 1/5"
+- Comments are anything after comma or anything in brackets: "12 ml ingredient, preferebly something specific"
+- Basic units mostly used in cocktails: ml, cl, oz, sprigs, dashes, etc...
+
 ```php
 <?php
 
@@ -40,14 +45,14 @@ var_dump($ingredient);
 // $ingredient->source === '30 ml Tequila reposado'
 
 // Parse a line and convert units if possible
-$ingredient = $ingredientParser->parseLine('30 ml Tequila reposado (preferebly Patron)', Units::Oz);
+$ingredient = $ingredientParser->parseLine('1/2 - 1 ounce lime juice (freshly squeezed)', Units::Ml);
 var_dump($ingredient);
 // Output:
-// $ingredient->amount === 1.0
-// $ingredient->units === 'oz'
-// $ingredient->name === 'Tequila reposado'
-// $ingredient->comment === 'preferebly Patron'
-// $ingredient->source === '30 ml Tequila reposado'
+// $ingredient->amount === 15.0
+// $ingredient->amount_max === 30.0
+// $ingredient->units === 'ml'
+// $ingredient->name === 'lime juice'
+// $ingredient->comment === 'freshly squeezed'
 
 // Available via static call
 $ingredient = Parser::line('30 ml Tequila reposado (preferebly Patron)');

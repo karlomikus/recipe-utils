@@ -11,7 +11,6 @@ readonly class RecipeIngredient
         public float $amount,
         public string $units,
         public ?string $source = null,
-        public ?string $originalAmount = null,
         public ?string $comment = null,
         public ?float $amountMax = null,
     ) {

@@ -64,7 +64,6 @@ class Parser
         [$units, $baseString] = $this->unitParser->parse($baseString);
         [$name, $baseString] = $this->nameParser->parse($baseString);
 
-        $originalAmount = $amount;
         $amountMax = null;
         if (str_contains($amount, '-')) {
             $variableAmount = explode('-', $amount);
@@ -76,7 +75,6 @@ class Parser
             AmountValue::fromString($amount)->getValue(),
             $units,
             $sourceString,
-            $originalAmount,
             $comment,
             $amountMax ? AmountValue::fromString($amountMax)->getValue() : null,
         );
