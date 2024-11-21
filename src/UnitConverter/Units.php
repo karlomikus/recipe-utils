@@ -12,6 +12,8 @@ enum Units: string
     case Dash = 'dash';
     case Shot = 'shot';
     case Part = 'part';
+    case Litre = 'l';
+    case Barspoon = 'barspoon';
 
     public function getClassName(): string
     {
@@ -22,6 +24,8 @@ enum Units: string
             Units::Dash => Dash::class,
             Units::Shot => Shot::class,
             Units::Part => Part::class,
+            Units::Litre => Litre::class,
+            Units::Barspoon => Barspoon::class,
         };
     }
 }
