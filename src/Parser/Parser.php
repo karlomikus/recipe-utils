@@ -43,6 +43,7 @@ class Parser
         'cube' => ['cubes', 'cube'],
         'bottle' => ['bottles', 'bottle'],
         'can' => ['cans', 'can'],
+        'bag' => ['bags', 'bag'],
     ];
 
     public function __construct()
