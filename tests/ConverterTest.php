@@ -13,7 +13,7 @@ use Kami\RecipeUtils\UnitConverter\Oz;
 use Kami\RecipeUtils\UnitConverter\Dash;
 use Kami\RecipeUtils\UnitConverter\Part;
 use Kami\RecipeUtils\UnitConverter\Shot;
-use Kami\RecipeUtils\UnitConverter\Litre;
+use Kami\RecipeUtils\UnitConverter\Liter;
 use Kami\RecipeUtils\UnitConverter\Units;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Kami\RecipeUtils\UnitConverter\AmountValue;
@@ -49,7 +49,7 @@ class ConverterTest extends TestCase
             ['classFrom' => Shot::class, 'input' => '1', 'expected' => 30.0, 'convert' => 'toMl'],
             ['classFrom' => Part::class, 'input' => '1', 'expected' => 30.0, 'convert' => 'toMl'],
 
-            ['classFrom' => Litre::class, 'input' => '1', 'expected' => 1000.0, 'convert' => 'toMl'],
+            ['classFrom' => Liter::class, 'input' => '1', 'expected' => 1000.0, 'convert' => 'toMl'],
         ];
     }
 

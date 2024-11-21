@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Kami\RecipeUtils\UnitConverter;
 
-class Litre extends Unit
+class Liter extends Unit
 {
     public function toStandardMlValue(): AmountValue
     {
