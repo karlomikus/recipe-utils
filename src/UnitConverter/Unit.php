@@ -45,5 +45,15 @@ abstract class Unit implements UnitInterface
         return new Part($this->toStandardMlValue());
     }
 
+    public function toLiter(): Liter
+    {
+        return new Liter(AmountValue::from($this->toStandardMlValue()->getValue() / 1000));
+    }
+
+    public function toBarspoon(): Barspoon
+    {
+        return new Barspoon(AmountValue::from($this->toStandardMlValue()->getValue() / 5));
+    }
+
     abstract public function toStandardMlValue(): AmountValue;
 }

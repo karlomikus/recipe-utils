@@ -15,6 +15,7 @@ use Kami\RecipeUtils\UnitConverter\Part;
 use Kami\RecipeUtils\UnitConverter\Shot;
 use Kami\RecipeUtils\UnitConverter\Liter;
 use Kami\RecipeUtils\UnitConverter\Units;
+use Kami\RecipeUtils\UnitConverter\Barspoon;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Kami\RecipeUtils\UnitConverter\AmountValue;
 
@@ -50,6 +51,9 @@ class ConverterTest extends TestCase
             ['classFrom' => Part::class, 'input' => '1', 'expected' => 30.0, 'convert' => 'toMl'],
 
             ['classFrom' => Liter::class, 'input' => '1', 'expected' => 1000.0, 'convert' => 'toMl'],
+            ['classFrom' => Ml::class, 'input' => '750', 'expected' => 0.75, 'convert' => 'toLiter'],
+
+            ['classFrom' => Barspoon::class, 'input' => '1', 'expected' => 5, 'convert' => 'toMl'],
         ];
     }
 
