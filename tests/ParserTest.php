@@ -352,6 +352,14 @@ final class ParserTest extends TestCase
                     'name' => 'lime juice',
                 ]
             ],
+            '1 shot espresso' => [
+                '1 shot espresso',
+                [
+                    'amount' => 1.0,
+                    'units' => 'shot',
+                    'name' => 'espresso',
+                ]
+            ],
             // '12 ounce ounces ml oz, test (bottles)' => [
             //     '12 ounce ounces ml oz, test (bottles)',
             //     [
