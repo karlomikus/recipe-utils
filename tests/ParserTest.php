@@ -360,35 +360,24 @@ final class ParserTest extends TestCase
                     'name' => 'espresso',
                 ]
             ],
-            // '12 ounce ounces ml oz, test (bottles)' => [
-            //     '12 ounce ounces ml oz, test (bottles)',
-            //     [
-            //         'amount' => 12.0,
-            //         'units' => 'oz',
-            //         'name' => 'ounces ml oz',
-            //         'comment' => 'test (bottles)',
-            //     ]
-            // ],
-            // '½ to 1½ teaspoons hot pepper sauce, or to taste' => [
-            //     '½ to 1½ teaspoons hot pepper sauce, or to taste',
-            //     [
-            //         'amount' => 0.5,
-            //         'amount_max' => 1.0,
-            //         'units' => 'barspoon',
-            //         'name' => '1/2  hot pepper sauce',
-            //         'comment' => 'or to taste',
-            //     ]
-            // ],
-            // 'a splash of soda' => [
-            //     'a splash of guaraná juice or soda',
-            //     [
-            //         'amount' => 0.5,
-            //         'amount_max' => 1.0,
-            //         'units' => 'barspoon',
-            //         'name' => '1/2  hot pepper sauce',
-            //         'comment' => 'or to taste',
-            //     ]
-            // ],
+            '½ to 1½ teaspoons hot pepper sauce, or to taste' => [
+                '½ to 1½ teaspoons hot pepper sauce, or to taste',
+                [
+                    'amount' => 0.5,
+                    'amount_max' => 1.5,
+                    'units' => 'barspoon',
+                    'name' => 'hot pepper sauce',
+                    'comment' => 'or to taste',
+                ]
+            ],
+            'a splash of guaraná juice or soda' => [
+                'a splash of guaraná juice or soda',
+                [
+                    'amount' => 0.0,
+                    'units' => 'splash',
+                    'name' => 'a of guarana juice or soda',
+                ]
+            ],
         ];
     }
 }
