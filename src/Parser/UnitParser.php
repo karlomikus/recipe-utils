@@ -15,18 +15,21 @@ class UnitParser implements StringParserInterface
 
     public function parse(string $sourceString): array
     {
+        // Tokenize the input string into words
+        $words = preg_split('/\s+/', trim($sourceString));
+
         foreach ($this->units as $unit => $alts) {
             foreach ($alts as $matchUnit) {
-                // Match the whole word
-                // Note: This will still have problems matching ingredients if they
-                // have multiple matches in the string, so it's difficult to guess order of matching
-                $matchWholeWordRegex = '/\b' . $matchUnit . '\b/i';
-                if (preg_match($matchWholeWordRegex, $sourceString) === 1) { // TODO: Switch to word for word matching...
-                    return [$unit, trim(preg_replace($matchWholeWordRegex, '', $sourceString, 1) ?? '', " \n\r\t\v\x00\.")];
+                // Loop through words to check for an exact match
+                foreach ($words as $index => $word) {
+                    if (strcasecmp($word, $matchUnit) === 0) { // Case-insensitive match
+                        unset($words[$index]); // Remove matched unit
+                        return [$unit, trim(implode(' ', $words), " \n\r\t\v\x00.")];
+                    }
                 }
             }
         }
 
-        return ['', $sourceString];
+        return ['', $sourceString]; // No unit found
     }
 }
