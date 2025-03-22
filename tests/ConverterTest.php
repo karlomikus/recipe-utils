@@ -61,7 +61,7 @@ class ConverterTest extends TestCase
      * @param class-string<\Kami\RecipeUtils\UnitConverter\UnitInterface> $classFrom
      */
     #[DataProvider('provideUnitData')]
-    public function testBasicConverting(string $classFrom, string $input, float $expected, ?string $convertToMethod = null): void
+    public function testBasicConverting(string $classFrom, string $input, float $expected, ?string $convert = null): void
     {
         if (!class_exists($classFrom)) {
             $this->markTestIncomplete('Converting from "' . $classFrom . '" is not possible');
@@ -69,10 +69,10 @@ class ConverterTest extends TestCase
 
         $amountValue = AmountValue::fromString($input);
 
-        if (!$convertToMethod) {
+        if (!$convert) {
             $this->assertSame($expected, (new $classFrom($amountValue))->getValue());
         } else {
-            $this->assertSame($expected, (new $classFrom($amountValue))->{$convertToMethod}()->getValue());
+            $this->assertSame($expected, (new $classFrom($amountValue))->{$convert}()->getValue());
         }
     }
 

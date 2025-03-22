@@ -120,7 +120,6 @@ final class ParserTest extends TestCase
     {
         $parser = new Parser();
 
-        $this->assertIsArray($parser->getUnits());
         $this->assertNotEmpty($parser->getUnits());
     }
 
