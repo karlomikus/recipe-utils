@@ -10,12 +10,13 @@ class AmountParser implements StringParserInterface
     {
         $amount = ['0', $sourceString];
 
-        // Match variable amounts (ex: 3-6 mint sprigs)
-        $matchIntOrFraction = '(?:[1-9][0-9]*|0)(?:\/[1-9][0-9]*)?';
-        $stringVariableMatchers = ['to', 'or'];
-        $variableAmountRegex = '/^(' . $matchIntOrFraction . '\-' . $matchIntOrFraction . ')|^(' . $matchIntOrFraction . '\s\-\s' . $matchIntOrFraction . ')|^(' . $matchIntOrFraction . '\s(' . implode('|', $stringVariableMatchers) . ')\s' . $matchIntOrFraction . ')/';
+        // Possible variation delimiters
+        $stringVariableMatchers = ['-', 'to', 'or'];
 
-        $hasVariableAmount = preg_match($variableAmountRegex, $sourceString, $varMatches);
+        // Match variable amounts (ex: 3-6 mint sprigs)
+        $matchVariableAmounts = '/(\d+\s*\d*\/?\d*)\s*(?:' . implode('|', $stringVariableMatchers) . ')\s*(\d+\s*\d*\/?\d*)/i';
+
+        $hasVariableAmount = preg_match($matchVariableAmounts, $sourceString, $varMatches);
         if ($hasVariableAmount === 1) {
             $amount = $varMatches[0];
 
