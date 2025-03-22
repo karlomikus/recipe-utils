@@ -35,7 +35,7 @@ class Parser
         'slice' => ['slice', 'sliced', 'slices'],
         'cup' => ['c', 'c.', 'cup', 'cups'],
         'pint' => ['pt', 'pts', 'pt.', 'pint', 'pints'],
-        'splash' => ['splash', 'splashes'],
+        'splash' => ['a splash', 'splash', 'splashes'],
         'pinch' => ['pinches', 'pinch'],
         'topup' => ['topup'],
         'part' => ['part', 'parts'],
