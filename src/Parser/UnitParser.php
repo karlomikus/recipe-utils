@@ -17,6 +17,9 @@ class UnitParser implements StringParserInterface
     {
         // Tokenize the input string into words
         $words = preg_split('/\s+/', trim($sourceString));
+        if ($words === false) {
+            return ['', $sourceString]; // Return original string if tokenization fails
+        }
 
         foreach ($this->units as $unit => $alts) {
             foreach ($alts as $matchUnit) {
