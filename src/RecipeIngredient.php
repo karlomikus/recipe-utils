@@ -28,7 +28,7 @@ readonly class RecipeIngredient
     /**
      * @param array<Units> $ignoreUnits
      */
-    public function convertTo(?Units $convertToUnits = null, array $ignoreUnits = [])
+    public function convertTo(Units $convertToUnits, array $ignoreUnits = []): self
     {
         return Converter::tryConvert(
             $this,

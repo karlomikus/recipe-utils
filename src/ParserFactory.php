@@ -15,6 +15,8 @@ final class ParserFactory
 {
     /**
      * Creates a new Parser instance with sensible defaults.
+     *
+     * @param array<string, array<string>> $units
      */
     public static function make(array $units = []): Parser
     {
