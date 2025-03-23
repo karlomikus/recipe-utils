@@ -12,51 +12,13 @@ use Kami\RecipeUtils\UnitConverter\AmountValue;
 
 class Parser
 {
-    private StringParserInterface $amountParser;
-
-    private StringParserInterface $unitParser;
-
-    private StringParserInterface $nameParser;
-
-    private StringParserInterface $commentParser;
-
-    private StringNormalizer $stringNormalizer;
-
-    /**
-     * @var array<string, array<string>>
-     */
-    private array $units = [
-        'oz' => ['oz.', 'fl-oz', 'oz', 'ounce', 'ounces'],
-        'ml' => ['ml', 'ml.', 'milliliter', 'milliliters'],
-        'cl' => ['cl', 'cl.', 'centiliter', 'centiliters'],
-        'dash' => ['dashes', 'dash', 'ds'],
-        'sprigs' => ['sprig', 'sprigs'],
-        'leaves' => ['leaves', 'leaf'],
-        'whole' => ['whole'],
-        'drops' => ['drop', 'drops'],
-        'barspoon' => ['barspoon', 'teaspoon', 'bsp', 'tsp', 'tsp.', 'tspn', 't', 't.', 'teaspoon', 'teaspoons', 'tablespoons', 'tablespoon'],
-        'slice' => ['slice', 'sliced', 'slices'],
-        'cup' => ['c', 'c.', 'cup', 'cups'],
-        'pint' => ['pt', 'pts', 'pt.', 'pint', 'pints'],
-        'splash' => ['a splash', 'splash', 'splashes'],
-        'pinch' => ['pinches', 'pinch'],
-        'topup' => ['topup'],
-        'part' => ['part', 'parts'],
-        'wedge' => ['wedge', 'wedges'],
-        'cube' => ['cubes', 'cube'],
-        'bottle' => ['bottles', 'bottle'],
-        'can' => ['cans', 'can'],
-        'bag' => ['bags', 'bag'],
-        'shot' => ['shots', 'shot'],
-    ];
-
-    public function __construct()
-    {
-        $this->amountParser = new AmountParser();
-        $this->unitParser = new UnitParser($this->units);
-        $this->nameParser = new NameParser();
-        $this->commentParser = new CommentParser();
-        $this->stringNormalizer = new StringNormalizer();
+    public function __construct(
+        private StringParserInterface $amountParser,
+        private StringParserInterface $unitParser,
+        private StringParserInterface $nameParser,
+        private StringParserInterface $commentParser,
+        private StringNormalizer $stringNormalizer,
+    ) {
     }
 
     /**
@@ -123,21 +85,5 @@ class Parser
         $this->commentParser = $parser;
 
         return $this;
-    }
-
-    /**
-     * @return array<string, array<string>>
-     */
-    public function getUnits(): array
-    {
-        return $this->units;
-    }
-
-    /**
-     * @param array<Units> $ignoreUnits
-     */
-    public static function line(string $sourceString, ?Units $convertToUnits = null, array $ignoreUnits = []): RecipeIngredient
-    {
-        return (new self())->parseLine($sourceString, $convertToUnits, $ignoreUnits);
     }
 }

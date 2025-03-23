@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Kami\RecipeUtilsTests;
 
 use PHPUnit\Framework\TestCase;
-use Kami\RecipeUtils\Parser\Parser;
+use Kami\RecipeUtils\ParserFactory;
 use Kami\RecipeUtils\Parser\UnitParser;
 use Kami\RecipeUtils\UnitConverter\Units;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -19,7 +19,7 @@ final class ParserTest extends TestCase
     #[DataProvider('provideIngredients')]
     public function testParse(string $sourceString, array $expectedResult): void
     {
-        $parser = new Parser();
+        $parser = ParserFactory::make();
 
         $result = $parser->parseLine($sourceString);
         $this->assertSame($expectedResult['amount'], $result->amount, sprintf('Wrong amount for "%s"', $sourceString));
@@ -36,7 +36,7 @@ final class ParserTest extends TestCase
 
     public function testParseWithCustomUnits(): void
     {
-        $parser = new Parser();
+        $parser = ParserFactory::make();
         $parser->setUnitParser(
             new UnitParser([
                 'test' => ['lorem', 'ipsum']
@@ -49,16 +49,9 @@ final class ParserTest extends TestCase
         $this->assertSame('ingredient names', $result->name);
     }
 
-    public function testStaticCall(): void
-    {
-        $parsed = Parser::line('30 ml Tequila reposado');
-
-        $this->assertSame(30.0, $parsed->amount);
-    }
-
     public function testParseAndConvert(): void
     {
-        $parser = new Parser();
+        $parser = ParserFactory::make();
 
         $recipeIngredient = $parser->parseLine('1 1/2 oz. mezcal', Units::Ml);
         $this->assertSame(45.0, $recipeIngredient->amount);
@@ -83,7 +76,8 @@ final class ParserTest extends TestCase
 
     public function testCustomParsers(): void
     {
-        $parser = new Parser();
+        $parser = ParserFactory::make();
+
         $parser->setAmountParser(new class() implements StringParserInterface {
             public function parse(string $sourceString): array
             {
@@ -114,13 +108,6 @@ final class ParserTest extends TestCase
         $this->assertSame('comment', $ing->comment);
         $this->assertSame('name', $ing->name);
         $this->assertSame('unit', $ing->units);
-    }
-
-    public function testGetUnitsFromParser(): void
-    {
-        $parser = new Parser();
-
-        $this->assertNotEmpty($parser->getUnits());
     }
 
     /**
