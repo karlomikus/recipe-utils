@@ -16,7 +16,20 @@ final class StringNormalizer
             $string = trim($encString);
         }
 
-        // TODO: Check for missing closing brackets
+        // Check for missing closing brackets
+        $bracketPairs = [
+            '(' => ')',
+            '{' => '}',
+            '[' => ']',
+        ];
+        foreach ($bracketPairs as $open => $close) {
+            $openCount = substr_count($string, $open);
+            $closeCount = substr_count($string, $close);
+            if ($openCount > $closeCount) {
+                $string .= str_repeat($close, $openCount - $closeCount);
+            }
+        }
+
         // Check multiple spaces and replace with a single space
         $string = preg_replace('/[\s]+/', ' ', $string) ?? '';
         // Convert all decimals with comma to decimals with dot, helps with comment parsing
