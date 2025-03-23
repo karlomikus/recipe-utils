@@ -10,11 +10,11 @@ readonly class RecipeIngredient
 {
     public function __construct(
         public string $name,
-        public float $amount,
+        public AmountValue $amount,
         public string $units,
         public ?string $source = null,
         public ?string $comment = null,
-        public ?float $amountMax = null,
+        public ?AmountValue $amountMax = null,
     ) {
     }
 

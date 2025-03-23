@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Kami\RecipeUtils\Parser;
 
+use Kami\RecipeUtils\AmountValue;
 use Kami\RecipeUtils\RecipeIngredient;
-use Kami\RecipeUtils\UnitConverter\AmountValue;
 use Kami\RecipeUtils\Parser\Normalizer\StringNormalizer;
 
 class Parser
@@ -36,11 +36,11 @@ class Parser
 
         $ingredient = new RecipeIngredient(
             $name,
-            AmountValue::fromString($amount)->getValue(),
+            AmountValue::fromString($amount),
             $units,
             $sourceString,
             $comment,
-            $amountMax ? AmountValue::fromString($amountMax)->getValue() : null,
+            $amountMax ? AmountValue::fromString($amountMax) : null,
         );
 
         return $ingredient;

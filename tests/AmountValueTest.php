@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Kami\RecipeUtilsTests;
 
 use PHPUnit\Framework\TestCase;
+use Kami\RecipeUtils\AmountValue;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Kami\RecipeUtils\UnitConverter\AmountValue;
 
 final class AmountValueTest extends TestCase
 {

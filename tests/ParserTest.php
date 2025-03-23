@@ -22,7 +22,7 @@ final class ParserTest extends TestCase
         $parser = ParserFactory::make();
 
         $result = $parser->parseLine($sourceString);
-        $this->assertSame($expectedResult['amount'], $result->amount, sprintf('Wrong amount for "%s"', $sourceString));
+        $this->assertSame($expectedResult['amount'], $result->amount->getValue(), sprintf('Wrong amount for "%s"', $sourceString));
         $this->assertSame($expectedResult['units'], $result->units, sprintf('Wrong units for "%s"', $sourceString));
         $this->assertSame($expectedResult['name'], $result->name, sprintf('Wrong name for "%s"', $sourceString));
         $this->assertSame($sourceString, $result->source);
@@ -30,7 +30,7 @@ final class ParserTest extends TestCase
             $this->assertSame($expectedResult['comment'], $result->comment, sprintf('Wrong comment for "%s"', $sourceString));
         }
         if (array_key_exists('amount_max', $expectedResult)) {
-            $this->assertSame($expectedResult['amount_max'], $result->amountMax);
+            $this->assertSame($expectedResult['amount_max'], $result->amountMax?->getValue());
         }
     }
 
@@ -45,7 +45,7 @@ final class ParserTest extends TestCase
 
         $result = $parser->parseLine('15 lorem ingredient names');
         $this->assertSame('test', $result->units);
-        $this->assertSame(15.0, $result->amount);
+        $this->assertSame(15.0, $result->amount->getValue());
         $this->assertSame('ingredient names', $result->name);
     }
 
@@ -54,22 +54,22 @@ final class ParserTest extends TestCase
         $parser = ParserFactory::make();
 
         $recipeIngredient = $parser->parseLine('1 1/2 oz. mezcal')->convertTo(Units::Ml);
-        $this->assertSame(45.0, $recipeIngredient->amount);
+        $this->assertSame(45.0, $recipeIngredient->amount->getValue());
         $this->assertSame('ml', $recipeIngredient->units);
         $this->assertSame('mezcal', $recipeIngredient->name);
 
         $recipeIngredient = $parser->parseLine('1 1/2 oz. mezcal')->convertTo(Units::Oz);
-        $this->assertSame(1.5, $recipeIngredient->amount);
+        $this->assertSame(1.5, $recipeIngredient->amount->getValue());
         $this->assertSame('oz', $recipeIngredient->units);
         $this->assertSame('mezcal', $recipeIngredient->name);
 
         $recipeIngredient = $parser->parseLine('15ml mezcal')->convertTo(Units::Oz);
-        $this->assertSame(0.5, $recipeIngredient->amount);
+        $this->assertSame(0.5, $recipeIngredient->amount->getValue());
         $this->assertSame('oz', $recipeIngredient->units);
         $this->assertSame('mezcal', $recipeIngredient->name);
 
         $recipeIngredient = $parser->parseLine('1.5 parts mezcal')->convertTo(Units::Ml);
-        $this->assertSame(45.0, $recipeIngredient->amount);
+        $this->assertSame(45.0, $recipeIngredient->amount->getValue());
         $this->assertSame('ml', $recipeIngredient->units);
         $this->assertSame('mezcal', $recipeIngredient->name);
     }
@@ -104,7 +104,7 @@ final class ParserTest extends TestCase
         });
         $ing = $parser->parseLine('TEST');
 
-        $this->assertSame(55.0, $ing->amount);
+        $this->assertSame(55.0, $ing->amount->getValue());
         $this->assertSame('comment', $ing->comment);
         $this->assertSame('name', $ing->name);
         $this->assertSame('unit', $ing->units);

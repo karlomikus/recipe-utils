@@ -6,6 +6,7 @@ namespace Kami\RecipeUtilsTests;
 
 use Kami\RecipeUtils\Converter;
 use PHPUnit\Framework\TestCase;
+use Kami\RecipeUtils\AmountValue;
 use Kami\RecipeUtils\RecipeIngredient;
 use Kami\RecipeUtils\UnitConverter\Cl;
 use Kami\RecipeUtils\UnitConverter\Ml;
@@ -17,7 +18,6 @@ use Kami\RecipeUtils\UnitConverter\Liter;
 use Kami\RecipeUtils\UnitConverter\Units;
 use Kami\RecipeUtils\UnitConverter\Barspoon;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Kami\RecipeUtils\UnitConverter\AmountValue;
 
 class ConverterTest extends TestCase
 {
@@ -78,16 +78,16 @@ class ConverterTest extends TestCase
 
     public function testConverterClass(): void
     {
-        $testConvert = Converter::tryConvert(new RecipeIngredient('test', 0.5, 'oz', 'test'), Units::Ml);
-        $this->assertSame(15.0, $testConvert->amount);
+        $testConvert = Converter::tryConvert(new RecipeIngredient('test', new AmountValue(0.5), 'oz', 'test'), Units::Ml);
+        $this->assertSame(15.0, $testConvert->amount->getValue());
         $this->assertSame('ml', $testConvert->units);
 
-        $testConvert = Converter::tryConvert(new RecipeIngredient('test', 4.0, 'dash', 'test'), Units::Oz, [Units::Dash]);
-        $this->assertSame(4.0, $testConvert->amount);
+        $testConvert = Converter::tryConvert(new RecipeIngredient('test', new AmountValue(4.0), 'dash', 'test'), Units::Oz, [Units::Dash]);
+        $this->assertSame(4.0, $testConvert->amount->getValue());
         $this->assertSame('dash', $testConvert->units);
 
-        $testConvert = Converter::tryConvert(new RecipeIngredient('test', 1.5, '', 'test'), Units::Ml);
-        $this->assertSame(1.5, $testConvert->amount);
+        $testConvert = Converter::tryConvert(new RecipeIngredient('test', new AmountValue(1.5), '', 'test'), Units::Ml);
+        $this->assertSame(1.5, $testConvert->amount->getValue());
         $this->assertSame('', $testConvert->units);
     }
 

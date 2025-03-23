@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Kami\RecipeUtils;
 
+use Kami\RecipeUtils\AmountValue;
 use Kami\RecipeUtils\RecipeIngredient;
 use Kami\RecipeUtils\UnitConverter\Units;
-use Kami\RecipeUtils\UnitConverter\AmountValue;
 
 class Converter
 {
@@ -21,7 +21,7 @@ class Converter
         }
 
         $converterClass = $from->getClassName();
-        $fromValue = AmountValue::from($recipeIngredient->amount);
+        $fromValue = $recipeIngredient->amount;
         $fromUnit = new $converterClass($fromValue);
         $method = 'to' . $to->name;
 
@@ -29,9 +29,10 @@ class Converter
             return $recipeIngredient;
         }
 
+        // TODO: Convert max amount
         return new RecipeIngredient(
             $recipeIngredient->name,
-            $fromUnit->{$method}()->getValue(),
+            AmountValue::from($fromUnit->{$method}()->getValue()),
             $to->value,
             $recipeIngredient->source,
             $recipeIngredient->comment,
