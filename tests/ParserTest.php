@@ -364,6 +364,23 @@ final class ParserTest extends TestCase
                     'name' => 'a of guarana juice or soda',
                 ]
             ],
+            '20 drops 88% lactic acid solution ' => [
+                '20 drops 88% lactic acid solution ',
+                [
+                    'amount' => 20.0,
+                    'units' => 'drops',
+                    'name' => '88% lactic acid solution',
+                ]
+            ],
+            '100 milliliters (scant 3 1/2 ounces) coffee liqueur, such as Mr Black cold-brew liqueur' => [
+                '100 milliliters (scant 3 1/2 ounces) coffee liqueur, such as Mr Black cold-brew liqueur',
+                [
+                    'amount' => 100.0,
+                    'units' => 'ml',
+                    'name' => 'coffee liqueur, such as Mr Black cold-brew liqueur',
+                    'comment' => 'scant 3 1/2 ounces',
+                ]
+            ],
         ];
     }
 }
