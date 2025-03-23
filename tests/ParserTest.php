@@ -53,22 +53,22 @@ final class ParserTest extends TestCase
     {
         $parser = ParserFactory::make();
 
-        $recipeIngredient = $parser->parseLine('1 1/2 oz. mezcal', Units::Ml);
+        $recipeIngredient = $parser->parseLine('1 1/2 oz. mezcal')->convertTo(Units::Ml);
         $this->assertSame(45.0, $recipeIngredient->amount);
         $this->assertSame('ml', $recipeIngredient->units);
         $this->assertSame('mezcal', $recipeIngredient->name);
 
-        $recipeIngredient = $parser->parseLine('1 1/2 oz. mezcal', Units::Oz);
+        $recipeIngredient = $parser->parseLine('1 1/2 oz. mezcal')->convertTo(Units::Oz);
         $this->assertSame(1.5, $recipeIngredient->amount);
         $this->assertSame('oz', $recipeIngredient->units);
         $this->assertSame('mezcal', $recipeIngredient->name);
 
-        $recipeIngredient = $parser->parseLine('15ml mezcal', Units::Oz);
+        $recipeIngredient = $parser->parseLine('15ml mezcal')->convertTo(Units::Oz);
         $this->assertSame(0.5, $recipeIngredient->amount);
         $this->assertSame('oz', $recipeIngredient->units);
         $this->assertSame('mezcal', $recipeIngredient->name);
 
-        $recipeIngredient = $parser->parseLine('1.5 parts mezcal', Units::Ml);
+        $recipeIngredient = $parser->parseLine('1.5 parts mezcal')->convertTo(Units::Ml);
         $this->assertSame(45.0, $recipeIngredient->amount);
         $this->assertSame('ml', $recipeIngredient->units);
         $this->assertSame('mezcal', $recipeIngredient->name);

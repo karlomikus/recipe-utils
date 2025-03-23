@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Kami\RecipeUtils\Parser;
 
-use Kami\RecipeUtils\Converter;
-use Kami\RecipeUtils\Parser\Normalizer\StringNormalizer;
 use Kami\RecipeUtils\RecipeIngredient;
-use Kami\RecipeUtils\UnitConverter\Units;
 use Kami\RecipeUtils\UnitConverter\AmountValue;
+use Kami\RecipeUtils\Parser\Normalizer\StringNormalizer;
 
 class Parser
 {
@@ -21,10 +19,7 @@ class Parser
     ) {
     }
 
-    /**
-     * @param array<Units> $ignoreUnits
-     */
-    public function parseLine(string $sourceString, ?Units $convertToUnits = null, array $ignoreUnits = []): RecipeIngredient
+    public function parseLine(string $sourceString): RecipeIngredient
     {
         $baseString = $this->stringNormalizer->normalize($sourceString);
 
@@ -47,14 +42,6 @@ class Parser
             $comment,
             $amountMax ? AmountValue::fromString($amountMax)->getValue() : null,
         );
-
-        if ($convertToUnits) {
-            return Converter::tryConvert(
-                $ingredient,
-                $convertToUnits,
-                $ignoreUnits
-            );
-        }
 
         return $ingredient;
     }

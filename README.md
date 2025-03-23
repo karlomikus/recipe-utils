@@ -28,11 +28,12 @@ Supported formats:
 
 declare(strict_types=1);
 
-use Kami\RecipeUtils\Parser\Parser;
+use Kami\RecipeUtils\ParserFactory;
 use Kami\RecipeUtils\Parser\UnitParser;
 use Kami\RecipeUtils\UnitConverter\Units;
 
-$ingredientParser = new Parser();
+// Create parser with sensible defaults
+$ingredientParser = ParserFactory::make();
 
 // Parse a single ingredient line
 $ingredient = $ingredientParser->parseLine('30 ml Tequila reposado (preferebly Patron)');
@@ -45,7 +46,7 @@ var_dump($ingredient);
 // $ingredient->source === '30 ml Tequila reposado'
 
 // Parse a line and convert units if possible
-$ingredient = $ingredientParser->parseLine('1/2 - 1 ounce lime juice (freshly squeezed)', Units::Ml);
+$ingredient = $ingredientParser->parseLine('1/2 - 1 ounce lime juice (freshly squeezed)')->convertTo(Units::Ml);
 var_dump($ingredient);
 // Output:
 // $ingredient->amount === 15.0
@@ -53,20 +54,6 @@ var_dump($ingredient);
 // $ingredient->units === 'ml'
 // $ingredient->name === 'lime juice'
 // $ingredient->comment === 'freshly squeezed'
-
-// Available via static call
-$ingredient = Parser::line('30 ml Tequila reposado (preferebly Patron)');
-
-// Add custom units
-$ingredientParser->setUnitParser(
-    new UnitParser([
-        'test' => ['lorem', 'ipsum']
-    ])
-);
-
-$ingredient = $ingredientParser->parseLine('15 lorem ingredient names');
-// Output:
-// $ingredient->units === 'test'
 ```
 
 ## Unit converter usage

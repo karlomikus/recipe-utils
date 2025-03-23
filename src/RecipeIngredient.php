@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Kami\RecipeUtils;
 
+use Kami\RecipeUtils\UnitConverter\Units;
+
 readonly class RecipeIngredient
 {
     public function __construct(
@@ -21,5 +23,17 @@ readonly class RecipeIngredient
         return $this->name === $compareWith->name
             && $this->amount === $compareWith->amount
             && $this->units === $compareWith->units;
+    }
+
+    /**
+     * @param array<Units> $ignoreUnits
+     */
+    public function convertTo(?Units $convertToUnits = null, array $ignoreUnits = [])
+    {
+        return Converter::tryConvert(
+            $this,
+            $convertToUnits,
+            $ignoreUnits
+        );
     }
 }
