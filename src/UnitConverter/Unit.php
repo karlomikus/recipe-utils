@@ -12,7 +12,12 @@ abstract class Unit implements UnitInterface
     {
     }
 
-    public function getValue(): float
+    public function getValue(): AmountValue
+    {
+        return $this->value;
+    }
+
+    public function getAsFloat(): float
     {
         return round($this->value->getValue(), 2);
     }

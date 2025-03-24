@@ -10,6 +10,6 @@ class Liter extends Unit
 {
     public function toStandardMlValue(): AmountValue
     {
-        return new AmountValue($this->getValue() * 1000);
+        return new AmountValue($this->getValue()->getValue() * 1000);
     }
 }

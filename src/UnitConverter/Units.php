@@ -15,7 +15,10 @@ enum Units: string
     case Liter = 'l';
     case Barspoon = 'barspoon';
 
-    public function getClassName(): string
+    /**
+     * @return class-string
+     */
+    public function getClassNameForConversion(): string
     {
         return match ($this) {
             Units::Cl => Cl::class,

@@ -10,6 +10,6 @@ class Barspoon extends Unit
 {
     public function toStandardMlValue(): AmountValue
     {
-        return new AmountValue($this->getValue() * 5);
+        return new AmountValue($this->getValue()->getValue() * 5);
     }
 }

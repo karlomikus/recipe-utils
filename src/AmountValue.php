@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Kami\RecipeUtils;
 
-final class AmountValue
+use Stringable;
+
+final class AmountValue implements Stringable
 {
     public function __construct(private readonly float $value)
     {
@@ -62,5 +64,10 @@ final class AmountValue
     public function getValue(): float
     {
         return $this->value;
+    }
+
+    public function __toString(): string
+    {
+        return (string) round($this->value, 2);
     }
 }

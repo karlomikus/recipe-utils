@@ -70,12 +70,12 @@ use Kami\RecipeUtils\UnitConverter\Oz;
 use Kami\RecipeUtils\UnitConverter\Units;
 use Kami\RecipeUtils\UnitConverter\AmountValue;
 
-// Via converter service
+// Via existing ingredient object
 $ingredientToConvert = new RecipeIngredient(
     name: 'Vodka',
     amount: '1 1/2',
     units: 'oz',
-);
+)->convertTo(Units::Ml);
 
 $convertedIngredient = Converter::tryConvert($ingredientToConvert, Units::Ml);
 var_dump($convertedIngredient);

@@ -10,6 +10,6 @@ class Ml extends Unit
 {
     public function toStandardMlValue(): AmountValue
     {
-        return new AmountValue($this->getValue());
+        return new AmountValue($this->getValue()->getValue());
     }
 }

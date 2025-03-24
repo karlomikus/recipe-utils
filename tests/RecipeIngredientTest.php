@@ -17,4 +17,10 @@ final class RecipeIngredientTest extends TestCase
 
         $this->assertFalse($r1->isEqualTo($r2));
     }
+
+    public function testStringable(): void
+    {
+        $this->assertSame('30 ml London dry gin', (string) new RecipeIngredient('London dry gin', new AmountValue(30.0), 'ml'));
+        $this->assertSame('0.5 - 2 oz London dry gin', (string) new RecipeIngredient('London dry gin', new AmountValue(0.5), 'oz', 'source', 'comment', new AmountValue(2.0)));
+    }
 }

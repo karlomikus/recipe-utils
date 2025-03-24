@@ -16,6 +16,11 @@ final class AmountValueTest extends TestCase
         $this->assertSame($output, AmountValue::fromString($input)->getValue());
     }
 
+    public function testStringable(): void
+    {
+        $this->assertSame('23.35', (string) new AmountValue(23.3499));
+    }
+
     /**
      * @return array<mixed>
      */

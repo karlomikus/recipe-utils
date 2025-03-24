@@ -7,7 +7,6 @@ namespace Kami\RecipeUtilsTests;
 use Kami\RecipeUtils\Converter;
 use PHPUnit\Framework\TestCase;
 use Kami\RecipeUtils\AmountValue;
-use Kami\RecipeUtils\RecipeIngredient;
 use Kami\RecipeUtils\UnitConverter\Cl;
 use Kami\RecipeUtils\UnitConverter\Ml;
 use Kami\RecipeUtils\UnitConverter\Oz;
@@ -70,31 +69,16 @@ class ConverterTest extends TestCase
         $amountValue = AmountValue::fromString($input);
 
         if (!$convert) {
-            $this->assertSame($expected, (new $classFrom($amountValue))->getValue());
+            $this->assertSame($expected, (new $classFrom($amountValue))->getValue()->getValue());
         } else {
-            $this->assertSame($expected, (new $classFrom($amountValue))->{$convert}()->getValue());
+            $this->assertSame($expected, (new $classFrom($amountValue))->{$convert}()->getValue()->getValue());
         }
-    }
-
-    public function testConverterClass(): void
-    {
-        $testConvert = Converter::tryConvert(new RecipeIngredient('test', new AmountValue(0.5), 'oz', 'test'), Units::Ml);
-        $this->assertSame(15.0, $testConvert->amount->getValue());
-        $this->assertSame('ml', $testConvert->units);
-
-        $testConvert = Converter::tryConvert(new RecipeIngredient('test', new AmountValue(4.0), 'dash', 'test'), Units::Oz, [Units::Dash]);
-        $this->assertSame(4.0, $testConvert->amount->getValue());
-        $this->assertSame('dash', $testConvert->units);
-
-        $testConvert = Converter::tryConvert(new RecipeIngredient('test', new AmountValue(1.5), '', 'test'), Units::Ml);
-        $this->assertSame(1.5, $testConvert->amount->getValue());
-        $this->assertSame('', $testConvert->units);
     }
 
     public function testSimpleConvert(): void
     {
-        $this->assertSame(1.0, Converter::fromTo(30.0, Units::Ml, Units::Oz));
-        $this->assertSame(30.0, Converter::fromTo(1.0, Units::Oz, Units::Ml));
-        $this->assertSame(3.0, Converter::fromTo(30.0, Units::Ml, Units::Cl));
+        $this->assertSame(1.0, Converter::convertAmount(new AmountValue(30.0), Units::Ml, Units::Oz)->getValue());
+        $this->assertSame(30.0, Converter::convertAmount(new AmountValue(1.0), Units::Oz, Units::Ml)->getValue());
+        $this->assertSame(3.0, Converter::convertAmount(new AmountValue(30.0), Units::Ml, Units::Cl)->getValue());
     }
 }

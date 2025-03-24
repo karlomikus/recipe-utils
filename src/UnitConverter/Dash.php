@@ -10,6 +10,6 @@ class Dash extends Unit
 {
     public function toStandardMlValue(): AmountValue
     {
-        return new AmountValue($this->getValue() * 0.3125);
+        return new AmountValue($this->getValue()->getValue() * 0.3125);
     }
 }

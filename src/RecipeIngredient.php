@@ -6,7 +6,9 @@ namespace Kami\RecipeUtils;
 
 use Kami\RecipeUtils\UnitConverter\Units;
 
-readonly class RecipeIngredient
+use Stringable;
+
+readonly class RecipeIngredient implements Stringable
 {
     public function __construct(
         public string $name,
@@ -25,15 +27,38 @@ readonly class RecipeIngredient
             && $this->units === $compareWith->units;
     }
 
+    public function getUnitsAsEnum(): ?Units
+    {
+        return Units::tryFrom($this->units);
+    }
+
     /**
      * @param array<Units> $ignoreUnits
      */
     public function convertTo(Units $convertToUnits, array $ignoreUnits = []): self
     {
-        return Converter::tryConvert(
-            $this,
-            $convertToUnits,
-            $ignoreUnits
+        if ($this->getUnitsAsEnum() === null || in_array($this->getUnitsAsEnum(), $ignoreUnits)) {
+            return $this;
+        }
+
+        return new self(
+            $this->name,
+            Converter::convertAmount($this->amount, $this->getUnitsAsEnum(), $convertToUnits),
+            $convertToUnits->value,
+            $this->source,
+            $this->comment,
+            $this->amountMax ? Converter::convertAmount($this->amountMax, $this->getUnitsAsEnum(), $convertToUnits) : null,
         );
+    }
+
+    public function __toString(): string
+    {
+        $amount = (string) $this->amount;
+
+        if ($this->amountMax) {
+            $amount = sprintf('%s - %s', $this->amount, $this->amountMax);
+        }
+
+        return sprintf('%s %s %s', $amount, $this->units, $this->name);
     }
 }
