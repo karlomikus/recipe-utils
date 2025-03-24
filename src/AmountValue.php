@@ -15,7 +15,6 @@ final class AmountValue implements Stringable
     /**
      * Try to parse string representation of number to a float
      * Accounts only for the most usual cocktail unit representation
-     * Not made for accuracy, ie: 1oz ~ 30ml
      *
      * @param string $value
      * @return self
@@ -64,6 +63,16 @@ final class AmountValue implements Stringable
     public function getValue(): float
     {
         return $this->value;
+    }
+
+    public function multiplyBy(float $number): self
+    {
+        return new self($this->value * $number);
+    }
+
+    public function divideBy(float $number): self
+    {
+        return new self($this->value / $number);
     }
 
     public function __toString(): string

@@ -10,6 +10,6 @@ class Cl extends Unit
 {
     public function toStandardMlValue(): AmountValue
     {
-        return new AmountValue($this->getValue()->getValue() * 10);
+        return $this->getValue()->multiplyBy(10);
     }
 }

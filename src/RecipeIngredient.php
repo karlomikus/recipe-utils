@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Kami\RecipeUtils;
 
-use Kami\RecipeUtils\UnitConverter\Units;
-
 use Stringable;
+
+use Kami\RecipeUtils\UnitConverter\Units;
 
 readonly class RecipeIngredient implements Stringable
 {
