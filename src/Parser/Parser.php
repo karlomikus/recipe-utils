@@ -34,7 +34,7 @@ class Parser
             $amountMax = (string) $variableAmount[1];
         }
 
-        $ingredient = new RecipeIngredient(
+        return new RecipeIngredient(
             $name,
             AmountValue::fromString($amount),
             $units,
@@ -42,32 +42,30 @@ class Parser
             $comment,
             $amountMax ? AmountValue::fromString($amountMax) : null,
         );
-
-        return $ingredient;
     }
 
-    public function setAmountParser(StringParserInterface $parser): self
+    public function withAmountParser(StringParserInterface $parser): self
     {
         $this->amountParser = $parser;
 
         return $this;
     }
 
-    public function setUnitParser(StringParserInterface $parser): self
+    public function withUnitParser(StringParserInterface $parser): self
     {
         $this->unitParser = $parser;
 
         return $this;
     }
 
-    public function setNameParser(StringParserInterface $parser): self
+    public function withNameParser(StringParserInterface $parser): self
     {
         $this->nameParser = $parser;
 
         return $this;
     }
 
-    public function setCommentParser(StringParserInterface $parser): self
+    public function withCommentParser(StringParserInterface $parser): self
     {
         $this->commentParser = $parser;
 

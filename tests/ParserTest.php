@@ -37,7 +37,7 @@ final class ParserTest extends TestCase
     public function testParseWithCustomUnits(): void
     {
         $parser = ParserFactory::make();
-        $parser->setUnitParser(
+        $parser->withUnitParser(
             new UnitParser([
                 'test' => ['lorem', 'ipsum']
             ])
@@ -78,25 +78,25 @@ final class ParserTest extends TestCase
     {
         $parser = ParserFactory::make();
 
-        $parser->setAmountParser(new class() implements StringParserInterface {
+        $parser->withAmountParser(new class() implements StringParserInterface {
             public function parse(string $sourceString): array
             {
                 return ['55', '2'];
             }
         });
-        $parser->setCommentParser(new class() implements StringParserInterface {
+        $parser->withCommentParser(new class() implements StringParserInterface {
             public function parse(string $sourceString): array
             {
                 return ['comment', '4'];
             }
         });
-        $parser->setNameParser(new class() implements StringParserInterface {
+        $parser->withNameParser(new class() implements StringParserInterface {
             public function parse(string $sourceString): array
             {
                 return ['name', '6'];
             }
         });
-        $parser->setUnitParser(new class() implements StringParserInterface {
+        $parser->withUnitParser(new class() implements StringParserInterface {
             public function parse(string $sourceString): array
             {
                 return ['unit', '8'];
