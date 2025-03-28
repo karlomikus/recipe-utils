@@ -13,6 +13,7 @@ class CommentParser implements StringParserInterface
         // Match string between brackets or after comma
         preg_match('/\((.*?)\)|\,(.*)/', $sourceString, $bracketMatcher);
         if (isset($bracketMatcher[0]) && isset($bracketMatcher[1])) {
+            // Clean string, remove everything between brackets and after comma
             return [trim($bracketMatcher[0], ",()\n\r\t\v\0 "), trim(str_replace($bracketMatcher[0], '', $sourceString))];
         }
 
