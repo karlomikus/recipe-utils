@@ -7,7 +7,7 @@ namespace Kami\RecipeUtils\Parser;
 class UnitParser implements StringParserInterface
 {
     /**
-     * @param array<string, array<string>> $units
+     * @param array<string, non-empty-array<string>> $units
      */
     public function __construct(private readonly array $units = [])
     {

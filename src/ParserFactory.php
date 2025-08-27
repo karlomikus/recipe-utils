@@ -16,34 +16,11 @@ final class ParserFactory
     /**
      * Creates a new Parser instance with sensible defaults.
      *
-     * @param array<string, array<string>> $units
+     * @param array<string, non-empty-array<string>> $units
      */
     public static function make(array $units = []): Parser
     {
-        $units = array_merge($units, [
-            'oz' => ['oz.', 'fl-oz', 'oz', 'ounce', 'ounces'],
-            'ml' => ['ml', 'ml.', 'milliliter', 'milliliters'],
-            'cl' => ['cl', 'cl.', 'centiliter', 'centiliters'],
-            'dash' => ['dashes', 'dash', 'ds'],
-            'sprigs' => ['sprig', 'sprigs'],
-            'leaves' => ['leaves', 'leaf'],
-            'whole' => ['whole'],
-            'drops' => ['drop', 'drops'],
-            'barspoon' => ['barspoon', 'teaspoon', 'bsp', 'tsp', 'tsp.', 'tspn', 't', 't.', 'teaspoon', 'teaspoons', 'tablespoons', 'tablespoon'],
-            'slice' => ['slice', 'sliced', 'slices'],
-            'cup' => ['c', 'c.', 'cup', 'cups'],
-            'pint' => ['pt', 'pts', 'pt.', 'pint', 'pints'],
-            'splash' => ['a splash', 'splash', 'splashes'],
-            'pinch' => ['pinches', 'pinch'],
-            'topup' => ['topup'],
-            'part' => ['part', 'parts'],
-            'wedge' => ['wedge', 'wedges'],
-            'cube' => ['cubes', 'cube'],
-            'bottle' => ['bottles', 'bottle'],
-            'can' => ['cans', 'can'],
-            'bag' => ['bags', 'bag'],
-            'shot' => ['shots', 'shot'],
-        ]);
+        $units = array_merge($units, DefaultUnits::get());
 
         $amountParser = new AmountParser();
         $unitParser = new UnitParser($units);
