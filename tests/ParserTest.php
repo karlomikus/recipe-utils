@@ -381,6 +381,30 @@ final class ParserTest extends TestCase
                     'comment' => 'scant 3 1/2 ounces',
                 ]
             ],
+            '700 grams rum' => [
+                '700 grams rum',
+                [
+                    'amount' => 700.0,
+                    'units' => 'g',
+                    'name' => 'rum',
+                ],
+            ],
+            '1 gram rum' => [
+                '1 gram rum',
+                [
+                    'amount' => 1.0,
+                    'units' => 'g',
+                    'name' => 'rum',
+                ],
+            ],
+            '1 g rum' => [
+                '1 g rum',
+                [
+                    'amount' => 1.0,
+                    'units' => 'g',
+                    'name' => 'rum',
+                ],
+            ],
         ];
     }
 }

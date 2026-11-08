@@ -17,6 +17,7 @@ final class DefaultUnits
             'oz' => ['oz.', 'fl-oz', 'oz', 'ounce', 'ounces'],
             'ml' => ['ml', 'ml.', 'milliliter', 'milliliters'],
             'cl' => ['cl', 'cl.', 'centiliter', 'centiliters'],
+            'g' => ['g', 'gram', 'grams'],
             'dash' => ['dashes', 'dash', 'ds'],
             'sprigs' => ['sprig', 'sprigs'],
             'leaves' => ['leaves', 'leaf'],
